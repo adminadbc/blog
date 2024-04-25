@@ -11,8 +11,7 @@ export const Header = () => {
 
 	return (
 		<header className="border-b border-2 flex pl-10 py-5">
-		{/* <Image src={Logo} height={200} width={300} alt="" /> */}
-		header
+		<Image src={Logo} height={200} width={300} alt="" />
 		</header>
 	);
 };
