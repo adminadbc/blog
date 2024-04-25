@@ -12,7 +12,7 @@ export const Header = () => {
 	
 
 	return (
-		<header className="border-b border-2 flex pl-10 py-5">
+		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
 		<Image src={Logo} height={200} width={300} alt="" />
 
 		<div>
@@ -22,7 +22,7 @@ export const Header = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <Button className="bg-abcf text-black" size="lg">
+            <Button className="bg-abcf text-black px-10 py-3 rounded-md" size="lg">
               Donate
             </Button>
           </Link>
