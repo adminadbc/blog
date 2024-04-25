@@ -84,63 +84,7 @@ export const Header = () => {
         </IconButton>
 			</div>
 		</div>
-			<Collapse open={open}>
-			<div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
-			  <ul className="flex flex-col gap-4 text-gray-900 text-lg">
-				<li className="hover:text-abcf">
-				  <Link href="/main">
-					<h6>Home</h6>
-				  </Link>
-				</li>
-				<li className="hover:text-abcf">
-				  <Link href="/main/about">
-					<h6>About Us</h6>
-				  </Link>
-				</li>
-				<Custom />
-				<li className="hover:text-abcf">
-				  <Link href="/main/contacts">
-					<h6>Contact Us</h6>
-				  </Link>
-				</li>
-			  </ul>
-			  {/* <SearchLayer /> */}
-			  <Link href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144">
-				<Button className="bg-abcf mt-5 text-black" size="lg">
-				  Donate
-				</Button>
-			  </Link>
-			  <div className="flex gap-4 mt-6 ">
-				<a
-				  href="https://www.facebook.com/ABCFoundationConnect/"
-				  title="social"
-				  target="_blank"
-				  rel="noopener"
-				  className="hover:text-abcf"
-				>
-				  <FaSquareFacebook size={30} />
-				</a>
-				<a
-				  href="https://www.linkedin.com/company/advocacy-for-better-communities-foundation-abc-foundation/"
-				  title="social"
-				  target="_blank"
-				  rel="noopener"
-				  className="hover:text-abcf"
-				>
-				  <FaLinkedin size={30} />
-				</a>
-				<a
-				  href="https://www.instagram.com/the.abcfoundation/"
-				  title="social"
-				  target="_blank"
-				  rel="noopener"
-				  className="hover:text-abcf"
-				>
-				  <FaInstagramSquare size={30} />
-				</a>
-			  </div>
-			</div>
-		  </Collapse>
+	
 	</header>
 	);
 };
