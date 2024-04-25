@@ -5,7 +5,25 @@ import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Navbar, Collapse, IconButton, Button } from "@material-tailwind/react";
 import Logo from "./newlogo.png"
+import Custom from './dropDown';
 
+
+const links = [
+	{ name: "Home", href: "/main" },
+	{
+	  name: "About Us",
+	  href: "/main/about",
+	  submenu: true,
+	  submenuItems: [{ name: "Founder", href: "/main/founder" }],
+	},
+	{
+	  name: "Resources",
+	  href: "/main/resources",
+	  submenu: true,
+	  submenuItems: [{ name: "Articles", href: "/articles" }],
+	},
+	{ name: "Contact Us", href: "/main/contacts" },
+  ];
 export const Header = () => {
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
 
@@ -17,11 +35,22 @@ export const Header = () => {
 
 		<div>
 		<div className="hidden lg:flex">
-          <Link
+
+		 <div className='w-fit'>
+			<ul className='flex justify-center align-bottom space-x-6 font-semibold text-2xl mr-6'>
+				{links.map((link, idx)=> 
+				 link.name == "Resources" ? (
+					<Custom key={8} />
+				  ) : <li key={idx}>
+					<Link href={link.href} >{link.name}</Link>
+				</li>)}
+			</ul>
+		 </div>
+		 <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
             rel="noreferrer"
-			className='bg-abcf text-black rounded-lg px-10 py-3'
+			className='bg-abcf text-black rounded-lg font-bold uppercase px-6 py-3'
           >
               Donate
           </Link>
