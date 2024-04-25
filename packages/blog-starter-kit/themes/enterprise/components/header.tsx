@@ -9,10 +9,6 @@ import Logo from "./newlogo.png"
 import Custom from './dropDown';
 import SearchLayer from './searchBox';
 
-import { FaSquareFacebook } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa6";
-import { FaInstagramSquare } from "react-icons/fa";
-
 
 const links = [
 	{ name: "Home", href: "/main" },
@@ -43,11 +39,10 @@ export const Header = () => {
 		);
 	  }, []);
 	return (
-	<header>
-			<div className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
+		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
 		<Image src={Logo} height={200} width={300} alt="" className='w-28'/>
 
-		<div className='w-full relative '>
+		<div>
 		<div className="hidden lg:flex">
 
 		 <div className='w-fit mt-3'>
@@ -60,6 +55,9 @@ export const Header = () => {
 				</li>)}
 			</ul>
 		 </div>
+		<div className='mt-4 mr-4'>
+		{/* <SearchLayer /> */}
+		</div>
 		 <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
@@ -70,21 +68,20 @@ export const Header = () => {
           </Link>
         </div>
 		
-		{/* <IconButton
+		<IconButton
           variant="text"
           color="white"
           onClick={handleOpen}
-          className="ml-52 absolute right-3 lg:hidden "
+          className="ml-auto inline-block lg:hidden"
         >
           {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-black mr-3" />
+            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-black mr-6" />
           ) : (
             <Bars3Icon strokeWidth={2} className="h-6 w-6 text-black mr-8" />
           )}
-        </IconButton> */}
+        </IconButton>
 			</div>
-		</div>
-	
-	</header>
+			
+		</header>
 	);
 };
