@@ -44,12 +44,14 @@ export const Header = () => {
 				</li>)}
 			</ul>
 		 </div>
-		 <SearchLayer />
+		<div className='mt-4 mr-4'>
+		<SearchLayer />
+		</div>
 		 <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
             rel="noreferrer"
-			className='bg-abcf h-fit text-black rounded-lg font-bold uppercase px-6 py-3'
+			className='bg-abcf h-fit text-black rounded-lg font-bold uppercase px-6 py-2 mt-3'
           >
               Donate
           </Link>
