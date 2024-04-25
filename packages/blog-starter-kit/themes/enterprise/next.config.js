@@ -65,13 +65,19 @@ const config = {
 		scrollRestoration: true,
 	},
 	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'cdn.hashnode.com',
-			},
-		],
-	},
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: "images.unsplash.com",
+          },{
+            protocol : 'https',
+            hostname : "cdn.hashnode.com"
+          },{
+            protocol : 'https',
+            hostname : "www.abcfoundationconnect.com"
+          }
+        ],
+      },
 	async rewrites() {
 		return [
 			{
