@@ -36,12 +36,12 @@ export const Header = () => {
 		<div>
 		<div className="hidden lg:flex">
 
-		 <div className='w-fit'>
-			<ul className='flex justify-center align-bottom space-x-6 font-semibold text-2xl mr-6'>
+		 <div className='w-fit mt-3'>
+			<ul className='flex justify-center align-bottom space-x-6  text-2xl mr-6'>
 				{links.map((link, idx)=> 
 				 link.name == "Resources" ? (
 					<Custom key={8} />
-				  ) : <li key={idx}>
+				  ) : <li key={idx} className='mt-2'>
 					<Link href={link.href} >{link.name}</Link>
 				</li>)}
 			</ul>
