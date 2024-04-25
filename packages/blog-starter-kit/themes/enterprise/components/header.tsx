@@ -6,6 +6,7 @@ import { PublicationNavbarItem } from '../generated/graphql';
 import { Navbar, Collapse, IconButton, Button } from "@material-tailwind/react";
 import Logo from "./newlogo.png"
 import Custom from './dropDown';
+import SearchLayer from './searchBox';
 
 
 const links = [
@@ -26,9 +27,6 @@ const links = [
   ];
 export const Header = () => {
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
-
-	
-
 	return (
 		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
 		<Image src={Logo} height={200} width={300} alt="" />
@@ -46,11 +44,12 @@ export const Header = () => {
 				</li>)}
 			</ul>
 		 </div>
+		 <SearchLayer />
 		 <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
             rel="noreferrer"
-			className='bg-abcf text-black rounded-lg font-bold uppercase px-6 py-3'
+			className='bg-abcf h-fit text-black rounded-lg font-bold uppercase px-6 py-3'
           >
               Donate
           </Link>
