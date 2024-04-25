@@ -7,9 +7,7 @@ import Logo from "./newlogo.png"
 export const Header = () => {
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
 
-	const toggleSidebar = () => {
-		setIsSidebarVisible((prevVisibility) => !prevVisibility);
-	};
+	
 
 	return (
 		<header className="border-b border-2 flex pl-10 py-5">
