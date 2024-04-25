@@ -1,12 +1,17 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Navbar, Collapse, IconButton, Button } from "@material-tailwind/react";
 import Logo from "./newlogo.png"
 import Custom from './dropDown';
 import SearchLayer from './searchBox';
+
+import { FaSquareFacebook } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
+import { FaInstagramSquare } from "react-icons/fa";
 
 
 const links = [
@@ -26,12 +31,23 @@ const links = [
 	{ name: "Contact Us", href: "/main/contacts" },
   ];
 export const Header = () => {
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen((cur) => !cur);
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
-	return (
-		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
-		<Image src={Logo} height={200} width={300} alt="" />
 
-		<div>
+
+	useEffect(() => {
+		window.addEventListener(
+		  "resize",
+		  () => window.innerWidth >= 1060 && setOpen(false)
+		);
+	  }, []);
+	return (
+	<header>
+			<div className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
+		<Image src={Logo} height={200} width={300} alt="" className='w-28'/>
+
+		<div className='w-full relative '>
 		<div className="hidden lg:flex">
 
 		 <div className='w-fit mt-3'>
@@ -44,9 +60,6 @@ export const Header = () => {
 				</li>)}
 			</ul>
 		 </div>
-		<div className='mt-4 mr-4'>
-		<SearchLayer />
-		</div>
 		 <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
@@ -56,7 +69,78 @@ export const Header = () => {
               Donate
           </Link>
         </div>
+		
+		<IconButton
+          variant="text"
+          color="white"
+          onClick={handleOpen}
+          className="ml-52 absolute right-3 lg:hidden "
+        >
+          {open ? (
+            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-black mr-3" />
+          ) : (
+            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-black mr-8" />
+          )}
+        </IconButton>
 			</div>
-		</header>
+		</div>
+			<Collapse open={open}>
+			<div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
+			  <ul className="flex flex-col gap-4 text-gray-900 text-lg">
+				<li className="hover:text-abcf">
+				  <Link href="/main">
+					<h6>Home</h6>
+				  </Link>
+				</li>
+				<li className="hover:text-abcf">
+				  <Link href="/main/about">
+					<h6>About Us</h6>
+				  </Link>
+				</li>
+				<Custom />
+				<li className="hover:text-abcf">
+				  <Link href="/main/contacts">
+					<h6>Contact Us</h6>
+				  </Link>
+				</li>
+			  </ul>
+			  {/* <SearchLayer /> */}
+			  <Link href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144">
+				<Button className="bg-abcf mt-5 text-black" size="lg">
+				  Donate
+				</Button>
+			  </Link>
+			  <div className="flex gap-4 mt-6 ">
+				<a
+				  href="https://www.facebook.com/ABCFoundationConnect/"
+				  title="social"
+				  target="_blank"
+				  rel="noopener"
+				  className="hover:text-abcf"
+				>
+				  <FaSquareFacebook size={30} />
+				</a>
+				<a
+				  href="https://www.linkedin.com/company/advocacy-for-better-communities-foundation-abc-foundation/"
+				  title="social"
+				  target="_blank"
+				  rel="noopener"
+				  className="hover:text-abcf"
+				>
+				  <FaLinkedin size={30} />
+				</a>
+				<a
+				  href="https://www.instagram.com/the.abcfoundation/"
+				  title="social"
+				  target="_blank"
+				  rel="noopener"
+				  className="hover:text-abcf"
+				>
+				  <FaInstagramSquare size={30} />
+				</a>
+			  </div>
+			</div>
+		  </Collapse>
+	</header>
 	);
 };
