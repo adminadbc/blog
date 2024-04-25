@@ -21,10 +21,9 @@ export const Header = () => {
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
             rel="noreferrer"
+			className='bg-abcf text-black rounded-lg px-10 py-3'
           >
-            <Button className="bg-abcf text-black px-10 py-3 rounded-md" size="lg">
               Donate
-            </Button>
           </Link>
         </div>
 			</div>
