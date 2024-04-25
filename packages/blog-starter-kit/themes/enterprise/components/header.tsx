@@ -1,3 +1,4 @@
+'use client';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Button, Collapse, IconButton, Navbar } from '@material-tailwind/react';
 import Image from 'next/image';
