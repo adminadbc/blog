@@ -40,7 +40,7 @@ export const Header = () => {
 	  }, []);
 	return (
 		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
-		<Image src={Logo} height={200} width={300} alt="" className='w-28'/>
+		<Image src={Logo} height={200} width={300} alt="" className=''/>
 
 		<div>
 		<div className="hidden lg:flex">
@@ -66,9 +66,7 @@ export const Header = () => {
           >
               Donate
           </Link>
-        </div>
-		
-		<IconButton
+		  <IconButton
           variant="text"
           color="white"
           onClick={handleOpen}
@@ -80,8 +78,8 @@ export const Header = () => {
             <Bars3Icon strokeWidth={2} className="h-6 w-6 text-black mr-8" />
           )}
         </IconButton>
+        </div>
 			</div>
-			
 		</header>
 	);
 };
