@@ -109,7 +109,7 @@ async function handleRequest(request) {
 
   if (url.pathname.startsWith(subpath)) {
     // Proxy blog requests
-    return proxyBlog(request) 
+    return proxyBlog(request)
   } else {
     // Passthrough everything else
     return fetch(request)
@@ -127,7 +127,8 @@ async function proxyBlog(request) {
 ```
 
 After the above step is done, follow these steps to add the worker route:
-- Go to `Websites` then click on your website and select `Worker Routes` from the left pane. 
+
+- Go to `Websites` then click on your website and select `Worker Routes` from the left pane.
 - Click on `Add route` and add `https://yourdomain/*` , then select the worker you just added above and click `Save`.
 - Go to `https://yourdomain/yoursubpath` and now you should be able to see your blogs.
 
@@ -165,10 +166,9 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 ## Pricing
 
-**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed. 
+**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed.
 
 **For teams and enterprises:** Access to headless mode, multiple team members, real-time collaboration, AI, and enterprise reliability. [Request access and get a quote.](https://forms.hashnode.com/headless-hashnode-teams) We will be in touch within the next 24hrs to get you onboarded.
-
 
 ## Demo Videos
 
