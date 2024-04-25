@@ -1078,6 +1078,8 @@ type DocumentationGuide implements IGuide {
   sidebarItems: [DocumentationSidebarItem!]!
   slug: String!
   status: DocumentationGuideItemStatus!
+  """Url of the published guide."""
+  url: String
 }
 
 union DocumentationGuideItem = DocumentationApiReference | DocumentationGuide
@@ -1121,6 +1123,8 @@ type DocumentationPage {
   status: DocumentationSidebarItemStatus!
   title: String!
   updatedAt: DateTime
+  """Url of the published page."""
+  url: String
   visibility: DocumentationSidebarItemVisibility!
 }
 

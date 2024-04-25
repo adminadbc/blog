@@ -40,6 +40,7 @@ function SearchLayer() {
         latest?.unshift(data)
       latest?.pop()
       }
+    
       localStorage.setItem("recent_searches", latest?.toString()!)
       console.log(localStorage.getItem("recent_searches"))
       const index = client.initIndex("test");

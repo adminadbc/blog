@@ -75,78 +75,78 @@ export const Header = () => {
   
 	const pathname = usePathname();
 
-	  useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 1060 && setOpen(false)
-    );
-    const fetchPublication = async () => {
-      const endpoint = 'https://gql.hashnode.com';
+// 	  useEffect(() => {
+//     window.addEventListener(
+//       "resize",
+//       () => window.innerWidth >= 1060 && setOpen(false)
+//     );
+//     const fetchPublication = async () => {
+//       const endpoint = 'https://gql.hashnode.com';
 
-      const query = gql`
-        query Publication($host: String!) {
-          publication(host: $host) {
-            title
-            id
-            posts(first: 10) {
-              edges {
-                node {
-                  title
-                  id
-                  url
-                  brief
-                  coverImage {
-                    attribution
-                    photographer
-                  }
-                  content {
-                    text
-                  }
-                }
-              }
-            }
-          }
-        }
-      `;
+//       const query = gql`
+//         query Publication($host: String!) {
+//           publication(host: $host) {
+//             title
+//             id
+//             posts(first: 10) {
+//               edges {
+//                 node {
+//                   title
+//                   id
+//                   url
+//                   brief
+//                   coverImage {
+//                     attribution
+//                     photographer
+//                   }
+//                   content {
+//                     text
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       `;
 
-      const variables = {
-        host: "abcfoundationconnect.hashnode.dev" 
-      };
+//       const variables = {
+//         host: "abcfoundationconnect.hashnode.dev" 
+//       };
 
-      try {
-        const data = await request(endpoint, query, variables);
-        const { publication : {
-          posts :{
-            edges
-          }
-        } } : any = data
-        replacement = edges.map((item:any)  => ({
-          title: item.node.title,
-          objectID: item.node.id,
-          image : item.node.coverImage || "https://images.unsplash.com/photo-1562564055-71e051d33c19?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          brief : item.node.brief.replace(/<[^>]+>/g, ''),
-          link : `/main/resources/articles/${item.node.id}`
-        }))
+//       try {
+//         const data = await request(endpoint, query, variables);
+//         const { publication : {
+//           posts :{
+//             edges
+//           }
+//         } } : any = data
+//         replacement = edges.map((item:any)  => ({
+//           title: item.node.title,
+//           objectID: item.node.id,
+//           image : item.node.coverImage || "https://images.unsplash.com/photo-1562564055-71e051d33c19?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//           brief : item.node.brief.replace(/<[^>]+>/g, ''),
+//           link : `/main/resources/articles/${item.node.id}`
+//         }))
        
-        const index = client.initIndex('test');
-        console.log("start..")
-        index.replaceAllObjects(replacement).then(({ objectIDs }) => {
-          console.log("succccceeeesss")
-          console.log(objectIDs);
-        });
-        return data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+//         const index = client.initIndex('test');
+//         console.log("start..")
+//         index.replaceAllObjects(replacement).then(({ objectIDs }) => {
+//           console.log("succccceeeesss")
+//           console.log(objectIDs);
+//         });
+//         return data;
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
 
-    fetchPublication();
-  }, []);
+//     fetchPublication();
+//   }, []);
 	return (
 		<header className="border-b text-black flex gap-4 ">
 			
 			    <div className="mx-auto md:ml-auto flex gap-4 border-4 border-red-400  items-center h-18">
-        <Link href="/main">
+        {/* <Link href="/main">
           <Image
             src=""
             width={300} // Desired width
@@ -154,8 +154,8 @@ export const Header = () => {
             alt="ABC Foundation Logo"
 			className='h-20 w-56'
           />
-        </Link>
-
+        </Link> */}
+{/* 
         <div className="hidden items-center gap-10 lg:flex text-2xl w-full ">
           {links.map((link, idx) =>
             link.name == "Resources" ? (
@@ -173,9 +173,9 @@ export const Header = () => {
             )
           )}
           <SearchLayer />
-        </div>
+        </div> */}
 
-        <div className="hidden lg:flex">
+        {/* <div className="hidden lg:flex">
           <Link
             href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
             target="_blank"
@@ -185,8 +185,8 @@ export const Header = () => {
               Donate
             </Button>
           </Link>
-        </div>
-
+        </div> */}
+{/* 
         <IconButton
           variant="text"
           color="white"
@@ -198,7 +198,8 @@ export const Header = () => {
           ) : (
             <Bars3Icon strokeWidth={2} className="h-6 w-6 text-black mr-8" />
           )}
-        </IconButton>
+        </IconButton> */}
+		trace
       </div>
 
       <Collapse open={open}>

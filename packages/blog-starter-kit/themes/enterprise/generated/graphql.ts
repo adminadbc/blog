@@ -1074,6 +1074,8 @@ export type DocumentationGuide = IGuide & {
   sidebarItems: Array<DocumentationSidebarItem>;
   slug: Scalars['String']['output'];
   status: DocumentationGuideItemStatus;
+  /** Url of the published guide. */
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1127,6 +1129,8 @@ export type DocumentationPage = {
   status: DocumentationSidebarItemStatus;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Url of the published page. */
+  url?: Maybe<Scalars['String']['output']>;
   visibility: DocumentationSidebarItemVisibility;
 };
 
