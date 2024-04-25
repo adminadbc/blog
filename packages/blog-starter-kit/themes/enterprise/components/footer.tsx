@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
-import { FaSquareFacebook } from 'react-icons/fa6';
+import { FaInstagramSquare } from 'react-icons/fa';
+import { FaLinkedin, FaSquareFacebook } from 'react-icons/fa6';
 
 const links = [
 	{
@@ -65,7 +66,7 @@ export const Footer = () => {
 								rel="noopener"
 								className="hover:text-abcf"
 							>
-								{/* <FaLinkedin size={30} /> */}
+								<FaLinkedin size={30} />
 							</a>
 							<a
 								href="https://www.instagram.com/the.abcfoundation/"
@@ -74,7 +75,7 @@ export const Footer = () => {
 								rel="noopener"
 								className="hover:text-abcf"
 							>
-								{/* <FaInstagramSquare size={30} /> */}
+								<FaInstagramSquare size={30} />
 							</a>
 						</div>
 					</div>
@@ -97,6 +98,19 @@ export const Footer = () => {
 					</div>
 				</div>
 				<hr className="w-12/12 bg-abcf mx-auto my-10 h-px border-0 text-white" />
+				<div className=" flex flex-wrap justify-between text-white sm:mx-0">
+					<p className="font-normal">2024. All rights reserved.</p>
+					<p className="font-normal">
+						Powered by{' '}
+						<a
+							href="https://www.viteconsulting.com/"
+							title="vite consulting"
+							className="hover:text-abcf"
+						>
+							Vite Consulting
+						</a>
+					</p>
+				</div>
 				{/* <Container className="px-5"> */}
 				{/* {PUBLICATION_LOGO ? (
 					<div className="mb-20 flex w-full flex-row justify-start">
