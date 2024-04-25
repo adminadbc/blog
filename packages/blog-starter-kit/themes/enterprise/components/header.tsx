@@ -152,11 +152,11 @@ export const Header = () => {
             width={300} // Desired width
             height={100 / 3.78} // Calculated height based on the aspect ratio
             alt="ABC Foundation Logo"
-			className='h-20 w-56 border-4 border-red-300'
+			className='h-20 w-56'
           />
         </Link>
 
-        <div className="hidden items-center gap-10 lg:flex text-2xl w-full border-2 border-black">
+        <div className="hidden items-center gap-10 lg:flex text-2xl w-full ">
           {links.map((link, idx) =>
             link.name == "Resources" ? (
               <Custom key={8} /> 
