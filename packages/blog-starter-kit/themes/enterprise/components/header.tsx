@@ -110,7 +110,7 @@ export const Header = () => {
       `;
 
       const variables = {
-        host: "abcfoundationconnect.hashnode.dev" // Replace with your publication host
+        host: "abcfoundationconnect.hashnode.dev" 
       };
 
       try {
@@ -148,7 +148,7 @@ export const Header = () => {
 			    <div className="mx-auto md:ml-auto flex gap-4 border-4 border-red-400  items-center h-18">
         <Link href="/main">
           <Image
-            src="https://www.abcfoundationconnect.com/_next/image?url=%2Fnewlogo.png&w=384&q=75"
+            src=""
             width={300} // Desired width
             height={100 / 3.78} // Calculated height based on the aspect ratio
             alt="ABC Foundation Logo"
