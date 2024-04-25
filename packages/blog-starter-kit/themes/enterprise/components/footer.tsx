@@ -7,26 +7,37 @@ const links = [
 	{
 		title: 'Pages',
 		items: [
-			{ name: 'Home', url: '/' },
-			{ name: 'About Us', url: '/main/about' },
-			{ name: 'Contact Us', url: '/main/contacts' },
+			{ name: 'Home', url: 'https://www.abcfoundationconnect.com/' },
+			{ name: 'About Us', url: 'https://www.abcfoundationconnect.com/main/about' },
+			{ name: 'Contact Us', url: 'https://www.abcfoundationconnect.com/main/contacts' },
 		],
 	},
 	{
 		title: 'Legal',
 		items: [
-			{ name: 'Terms', url: '/main/terms' },
-			{ name: 'Privacy', url: '/main/policy' },
+			{ name: 'Terms', url: 'https://www.abcfoundationconnect.com/main/terms' },
+			{ name: 'Privacy', url: 'https://www.abcfoundationconnect.com/main/policy' },
 		],
 	},
 
 	{
 		title: 'Product',
 		items: [
-			{ name: 'Changemakers', url: '/main/initiatives/changemakers' },
+			{
+				name: 'Changemakers',
+				url: 'https://www.abcfoundationconnect.com/main/initiatives/changemakers',
+			},
 			{
 				name: 'Legal Community Connect',
-				url: '/main/initiatives/legal-connect',
+				url: 'https://www.abcfoundationconnect.com/main/initiatives/legal-connect',
+			},
+			{
+				name: 'Education',
+				url: 'https://www.abcfoundationconnect.com/main/resources/education',
+			},
+			{
+				name: 'Articles',
+				url: 'https://blog.abcfoundationconnect.com/',
 			},
 		],
 	},
