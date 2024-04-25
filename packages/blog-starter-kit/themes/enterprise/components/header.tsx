@@ -35,7 +35,7 @@ interface dataLog{
 	link : string
   }
   const links = [
-	{ name: "Home", href: "https://www.abcfoundationconnect.com//main" },
+	{ name: "Home", href: "https://www.abcfoundationconnect.com/main" },
 	{
 	  name: "About Us",
 	  href: "/main/about",
