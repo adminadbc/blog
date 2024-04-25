@@ -1,9 +1,8 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Navbar, Collapse, IconButton, Button } from "@material-tailwind/react";
 import Logo from "./newlogo.png"
 import Custom from './dropDown';
@@ -27,20 +26,10 @@ const links = [
 	{ name: "Contact Us", href: "/main/contacts" },
   ];
 export const Header = () => {
-	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen((cur) => !cur);
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
-
-
-	useEffect(() => {
-		window.addEventListener(
-		  "resize",
-		  () => window.innerWidth >= 1060 && setOpen(false)
-		);
-	  }, []);
 	return (
 		<header className="border-b border-2  flex justify-between pl-10 pr-10 align-middle py-5">
-		<Image src={Logo} height={200} width={300} alt="" className=''/>
+		<Image src={Logo} height={200} width={300} alt="" />
 
 		<div>
 		<div className="hidden lg:flex">
@@ -66,18 +55,7 @@ export const Header = () => {
           >
               Donate
           </Link>
-		  <IconButton
-          variant="text"
-          color="white"
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-        >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-black mr-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-black mr-8" />
-          )}
-        </IconButton>
+		  
         </div>
 			</div>
 		</header>
