@@ -102,6 +102,14 @@ export const Header = () => {
 							hello
 						</Link>
 					)}
+					<Link
+							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
+							target='_blank'
+							className='text-black uppercase px-6 py-3 text-sm 
+					font-semibold rounded-lg
+						bg-abcf h-fit'	>
+						Donate
+					</Link>
 				</div>
 				<div className='lg:hidden pt-4'>
 				{
@@ -121,9 +129,9 @@ export const Header = () => {
 				}
 				</div>
 				</div>
-				<div>
+				{ isSidebarVisible && <div className='lg:hidden'>
 					Mobile pop section
-				</div>
+				</div>}
 			</div>
 			{/* <Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
