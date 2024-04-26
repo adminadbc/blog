@@ -15,7 +15,7 @@ function hasUrl(
 }
 
 export const Header = () => {
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
+	// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
 	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>();
 	const { publication } = useAppContext();
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
@@ -99,7 +99,11 @@ export const Header = () => {
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
 					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
+					<Button
+						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
+						as="a"
+						label="Donate"
+					/>
 				</div>
 			</Container>
 			<div className="mt-5 flex justify-center lg:hidden">
