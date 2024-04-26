@@ -97,11 +97,11 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-white py-5 px-5 md:px-10 dark:border-neutral-800 dark:bg-neutral-900">
+		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className=" flex justify-between align-middle">
-				<div>
+				<div className=" flex justify-between align-middle pb-4 ">
+				<div className='pl-5 md:pl-10'>
 				<Link href="https://www.abcfoundationconnect.com/">
 							<Image
 								src="/images/newlogo.png"
@@ -144,9 +144,10 @@ export const Header = () => {
 				}
 				</div>
 				</div>
-				{ isSidebarVisible &&
-				 <div className={`lg:hidden flex flex-col pl-4 space-y-6 text-lg py-10 
-				transition `}>
+				{/* { isSidebarVisible && */}
+				<div className={`lg:hidden overflow-hidden ${isSidebarVisible ? 'h-fit' : 'h-0'}`}>
+				 <div className={` flex flex-col pl-8 space-y-6 text-lg py-10 
+				transition ${isSidebarVisible ? 'translate-y-0' : '-translate-y-96'}`}>
 				{links.map((listData, idx)=>
 						<Link href={listData.href} key={idx}>
 				<h3>		{	listData.name}</h3>
@@ -178,8 +179,8 @@ export const Header = () => {
 </svg>
 						</Link>
 						</div>
-				</div>
-				}
+				</div></div>
+				{/* } */}
 				
 			</div>
 			{/* <Container className="grid grid-cols-4 gap-5 px-5">
