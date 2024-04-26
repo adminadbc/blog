@@ -38,7 +38,7 @@ export const Header = () => {
 						rel="noopener noreferrer"
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
-						<h6>{item.label}</h6>
+						<h6 className="text-2xl">{item.label}</h6>
 					</a>
 				</li>
 			))}
@@ -64,7 +64,7 @@ export const Header = () => {
 											href={item.url}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+											className="transition-200 block truncate p-2 text-xl transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
 											{item.label}
 										</a>
