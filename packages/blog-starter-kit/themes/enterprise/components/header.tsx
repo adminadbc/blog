@@ -1,11 +1,13 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
-import { PublicationLogo } from './publication-logo';
+// import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
 
 function hasUrl(
@@ -27,7 +29,7 @@ export const Header = () => {
 	};
 
 	const navList = (
-		<ul className="flex flex-row items-center gap-2 text-white">
+		<ul className="flex flex-row items-center gap-2 text-black">
 			{visibleItems.map((item) => (
 				<li key={item.url}>
 					<a
@@ -36,7 +38,7 @@ export const Header = () => {
 						rel="noopener noreferrer"
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
-						{item.label}
+						<h6>{item.label}</h6>
 					</a>
 				</li>
 			))}
@@ -77,7 +79,7 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900">
+		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
 					<div className="lg:hidden">
@@ -85,7 +87,7 @@ export const Header = () => {
 							type="outline"
 							label=""
 							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
+							className="hover:bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
 							onClick={toggleSidebar}
 						/>
 
@@ -94,11 +96,18 @@ export const Header = () => {
 						)}
 					</div>
 					<div className="hidden lg:block">
-						<PublicationLogo />
+						<Link href="https://www.abcfoundationconnect.com/">
+							<Image
+								src="/images/newlogo.png"
+								width={300}
+								height={100 / 3.78} // Calculated height based on the aspect ratio
+								alt="ABC Foundation Logo"
+							/>
+						</Link>
 					</div>
 				</div>
-				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
-					<nav className="hidden lg:block">{navList}</nav>
+				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-black lg:col-span-3">
+					<nav className="hidden text-black lg:block">{navList}</nav>
 					<Button
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						as="a"
@@ -107,7 +116,15 @@ export const Header = () => {
 				</div>
 			</Container>
 			<div className="mt-5 flex justify-center lg:hidden">
-				<PublicationLogo />
+				{' '}
+				<Link href="https://www.abcfoundationconnect.com/">
+					<Image
+						src="/public/images/newlogo.png"
+						width={300}
+						height={100 / 3.78} // Calculated height based on the aspect ratio
+						alt="ABC Foundation Logo"
+					/>
+				</Link>
 			</div>
 		</header>
 	);
