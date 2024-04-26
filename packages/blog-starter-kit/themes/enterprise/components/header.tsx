@@ -56,7 +56,7 @@ export const Header = () => {
 						rel="noopener noreferrer"
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
-						<h6>{item.label}</h6>
+						<h6 className="text-2xl">{item.label}</h6>
 					</a>
 				</li>
 			))}
@@ -82,7 +82,7 @@ export const Header = () => {
 											href={item.url}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+											className="transition-200 block truncate p-2 text-xl transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
 											{item.label}
 										</a>
@@ -130,13 +130,11 @@ export const Header = () => {
 				</div>
 				<div className='lg:hidden pt-4'>
 				{
-					isSidebarVisible ? <Button
-					type="outline"
-					label=""
-					icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-					className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
-					onClick={toggleSidebar}
-				/> : <Button
+					isSidebarVisible ?
+					<svg xmlns="http://www.w3.org/2000/svg" onClick={toggleSidebar} 
+					 width="24" height="24" fill="currentColor" className="bi bi-x-lg mt-3 mr-3" viewBox="0 0 16 16">
+					<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+				  </svg> : <Button
 				type="outline"
 				label=""
 				icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
@@ -198,7 +196,7 @@ export const Header = () => {
 					<Button
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						as="a"
-						label="Donate"
+						label="DONATE"
 						className="bg-abcf text-black"
 					/>
 				</div>

@@ -49,8 +49,8 @@ export const Footer = () => {
 	// const { publication } = useAppContext();
 	// const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className="bg-brand2 px-8 py-14">
-			<div className="container mx-auto">
+		<footer className=" bg-brand2 px-8 py-14">
+			<div className="container mx-auto w-9/12">
 				<div className="flex justify-between gap-4 md:grid-cols-2 lg:px-2">
 					<div className="mb-8 md:mb-0">
 						<Image
@@ -93,9 +93,9 @@ export const Footer = () => {
 					<div className="grid grid-cols-2 justify-between gap-6 text-white lg:grid-cols-3">
 						{links.map(({ title, items }) => (
 							<ul key={title}>
-								<h6 className="mb-2 mr-2 text-2xl font-bold">{title}</h6>
+								<h6 className="mb-5 mr-2 text-2xl font-bold">{title}</h6>
 								{items.map((link) => (
-									<li key={link.name}>
+									<li key={link.name} className="mb-2">
 										<a
 											href={link.url}
 											className="hover:text-abcf py-1 font-medium text-white transition-colors"
