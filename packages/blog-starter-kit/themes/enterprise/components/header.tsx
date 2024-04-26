@@ -87,7 +87,7 @@ export const Header = () => {
 							type="outline"
 							label=""
 							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="hover:bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
+							className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
 							onClick={toggleSidebar}
 						/>
 
@@ -112,6 +112,7 @@ export const Header = () => {
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						as="a"
 						label="Donate"
+						className="bg-abcf text-black"
 					/>
 				</div>
 			</Container>

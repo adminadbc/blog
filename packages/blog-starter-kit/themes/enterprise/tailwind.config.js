@@ -12,7 +12,7 @@ module.exports = {
 				'accent-7': '#333',
 				success: '#0070f3',
 				cyan: '#79FFE1',
-				primary: colors.blue,
+				primary: { DEFAULT: '#B49712', 50: '#B49713', 500: '#B49715' },
 				abcf: '#B49712',
 				brand1: '#0C0F30',
 				brand2: '#021D2C',
