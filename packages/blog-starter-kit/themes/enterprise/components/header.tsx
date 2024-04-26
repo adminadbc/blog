@@ -9,12 +9,15 @@ import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 // import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
+import SearchLayer from './searchBox';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
 ): navbarItem is PublicationNavbarItem & { url: string } {
 	return !!navbarItem.url && navbarItem.url.length > 0;
 }
+
+const list = ["hi", "hello"]
 
 export const Header = () => {
 	// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
@@ -79,8 +82,50 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 gap-5 px-5">
+		<header className="border-b bg-white py-5 px-5 md:px-10 dark:border-neutral-800 dark:bg-neutral-900">
+			<div>
+				{/* Upper section */}
+				<div className=" flex justify-between align-middle">
+				<div>
+				<Link href="https://www.abcfoundationconnect.com/">
+							<Image
+								src="/images/newlogo.png"
+								width={300}
+								height={100 / 3.78} // Calculated height based on the aspect ratio
+								alt="ABC Foundation Logo"
+							/>
+						</Link>
+				</div>
+				<div className=' space-x-4 text-2xl hidden lg:flex'>
+					{list.map((listData, idx)=>
+						<Link href="">
+							hello
+						</Link>
+					)}
+				</div>
+				<div className='lg:hidden pt-4'>
+				{
+					isSidebarVisible ? <Button
+					type="outline"
+					label=""
+					icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+					className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
+					onClick={toggleSidebar}
+				/> : <Button
+				type="outline"
+				label=""
+				icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+				className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
+				onClick={toggleSidebar}
+			/>
+				}
+				</div>
+				</div>
+				<div>
+					Mobile pop section
+				</div>
+			</div>
+			{/* <Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
 					<div className="lg:hidden">
 						<Button
@@ -108,6 +153,7 @@ export const Header = () => {
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-black lg:col-span-3">
 					<nav className="hidden text-black lg:block">{navList}</nav>
+					<SearchLayer />
 					<Button
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						as="a"
@@ -126,7 +172,7 @@ export const Header = () => {
 						alt="ABC Foundation Logo"
 					/>
 				</Link>
-			</div>
+			</div> */}
 		</header>
 	);
 };

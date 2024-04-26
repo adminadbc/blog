@@ -14,15 +14,15 @@ const client = algoliasearch(API_KEY!, userId!);
 
 let hiStore: string = ""
 
-let historyData : string | null = ""
-if (typeof window !== 'undefined') {
+// let historyData : string | null = ""
+// if (typeof window !== 'undefined') {
     // Perform localStorage action
-    historyData = localStorage.getItem("recent_searches");
-  }
+//     historyData = localStorage.getItem("recent_searches");
+//   }
 
-if(historyData === null){
-  localStorage.setItem("recent_searches", hiStore)
-}
+// if(historyData === null){
+//   localStorage.setItem("recent_searches", hiStore)
+// }
 
 let resultList: any[];
 
@@ -35,14 +35,17 @@ function SearchLayer() {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     let data = e.target.value;
     if (data.length > 0) {
-      let latest = historyData?.split(" ")
-      if(latest?.length! > 3){
-        latest?.unshift(data)
-      latest?.pop()
-      }
+    //   let latest = historyData?.split(" ")
+    //   if(latest?.length! > 3){
+    //     latest?.unshift(data)
+    //   latest?.pop()
+    //   }
     
-      localStorage.setItem("recent_searches", latest?.toString()!)
-      console.log(localStorage.getItem("recent_searches"))
+    //   localStorage.setItem("recent_searches", latest?.toString()!)
+    //   console.log(localStorage.getItem("recent_searches"))
+
+
+    // Making reference to the index on Algolia
       const index = client.initIndex("test");
       index.search(data).then(({ hits }) => {
         hits.length > 0 ? setShow(true) : null;
@@ -54,9 +57,11 @@ function SearchLayer() {
       resultList = [];
     }
   };
-  const truncateText = (text: string, maxLength: number) => {
-    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
-  };
+//   const truncateText = (text: string, maxLength: number) => {
+//     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+//   };
+
+
   useEffect(() => {
     setList(resultList);
   }, [inputValue]);
@@ -74,6 +79,8 @@ function SearchLayer() {
         <div className="bg-white rounded-lg py-4 drop-shadow-lg z-[9999]
      md:w-[70vw] mt-20 flex justify-center flex-col align-middle h-fit relative mx-auto">
       
+
+      {/* SEARCHBOX HERE */}
       <div    className=" py-3 px-6 gap-1 flex border-b border-black text-center relative" >
         <CiSearch className="mt-2 font-bold"  />
       <input
@@ -87,42 +94,20 @@ function SearchLayer() {
             placeholder="search reasources..."
             autoComplete="off"
           />
-          <div onClick={()=>{setPop(false); console.log("clickedddd")}} className="p-2 rounded-lg border border-gray-400 cursor-pointer text-sm ml-auto">ESC</div>
+          <div onClick={()=>{setPop(false);}
+        } className="p-2 rounded-lg border border-gray-400 cursor-pointer text-sm ml-auto">ESC</div>
         </div>
           <div className="relative flex flex-col ">
             {history && <div className="flex flex-col gap-2">
               <div className="font-semibold text-xl px-7 py-5 border-b border-gray-300">Recents </div>
-              <ul className="flex flex-col text-sm">{historyData?.split(" ").map((data, idc)=>
+
+              {/* NO HISTORY DISPLAY */}
+              {/* <ul className="flex flex-col text-sm">{historyData?.split(" ").map((data, idc)=>
                 data.length > 2 && <li key={idc} className="px-7 border-b border-gray-300 text-gray-500 py-5">{data}
               </li>)}
-              </ul>
+              </ul> */}
               </div>}
-         {!history &&    resultList?.map((listData, idx) => (
-              <Link
-                target="_blank"
-                href={listData.link.replace("abcfoundationconnect.hashnode.dev", "abc-kit.vercel.app")}
-                key={idx}
-                className="border-b border-gray-400 flex px-5"
-              >    
-              <Image
-              src={listData.image}
-              alt={listData.title}
-              width={100}
-              height={100}
-              className="h-full"
-            />
-                <div className="py-2 px-2 text-left w-full flex flex-col justify-center align-middle">
-                  <div className="font-semibold text-base">
-                    {listData.title}
-                  </div>
-{/* 
-                  <p className="text-xs md:text-sm my-1">
-                    {truncateText(listData.article, 100)}
-                  </p> */}
-                </div>
-            
-              </Link>
-            ))}
+      
           </div>
       </div>
         </div>
@@ -150,3 +135,32 @@ export default SearchLayer;
 // size={32}
 // className="absolute top-10 right-10 bg-red-300 hover:cursor-pointer  rounded-full"
 // />
+
+// {!history &&    resultList?.map((listData, idx) => (
+//     <Link
+//       target="_blank"
+//       href={listData.link.replace("abcfoundationconnect.hashnode.dev", "abc-kit.vercel.app")}
+//       key={idx}
+//       className="border-b border-gray-400 flex px-5"
+//     >    
+//     <Image
+//     src={listData.image}
+//     alt={listData.title}
+//     width={100}
+//     height={100}
+//     className="h-full"
+//   />
+//       <div className="py-2 px-2 text-left w-full flex flex-col justify-center align-middle">
+//         <div className="font-semibold text-base">
+//           {listData.title}
+//         </div>
+
+//       </div>
+  
+//     </Link>
+//   ))}
+
+  {/* 
+        <p className="text-xs md:text-sm my-1">
+          {truncateText(listData.article, 100)}
+        </p> */}
