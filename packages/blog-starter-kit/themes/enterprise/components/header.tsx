@@ -18,20 +18,20 @@ function hasUrl(
 }
 
 const links = [
-	{ name: "Home", href: "/main" },
+	{ name: "Home", href: "https://www.abcfoundationconnect.com/main" },
 	{
 	  name: "About Us",
-	  href: "/main/about",
+	  href: "https://www.abcfoundationconnect.com/main/about",
 	  submenu: true,
-	  submenuItems: [{ name: "Founder", href: "/main/founder" }],
+	  submenuItems: [{ name: "Founder", href: "https://www.abcfoundationconnect.com/main/founder" }],
 	},
 	{
 	  name: "Resources",
-	  href: "/main/resources",
+	  href: "https://www.abcfoundationconnect.com/main/resources",
 	  submenu: true,
-	  submenuItems: [{ name: "Articles", href: "/articles" }],
+	  submenuItems: [{ name: "Articles", href: "https://www.abcfoundationconnect.com/articles" }],
 	},
-	{ name: "Contact Us", href: "/main/contacts" },
+	{ name: "Contact Us", href: "https://www.abcfoundationconnect.com/main/contacts" },
   ];
 
 export const Header = () => {
@@ -111,18 +111,20 @@ export const Header = () => {
 							/>
 						</Link>
 				</div>
-				<div className=' space-x-4 text-2xl hidden lg:flex'>
+				<div className='  text-2xl hidden lg:flex'>
+					<div className='flex space-x-4 mt-4 mr-16'>
 					{links.map((listData, idx)=>
-						<Link href="">
+						<Link  href={listData.href} className='' key={idx}>
 						{	listData.name}
 						</Link>
 					)}
+					</div>
 					<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 							target='_blank'
 							className='text-black uppercase px-6 py-3 text-sm 
 					font-semibold rounded-lg
-						bg-abcf h-fit'	>
+						bg-abcf h-fit mt-2'	>
 						Donate
 					</Link>
 				</div>
@@ -144,9 +146,9 @@ export const Header = () => {
 				}
 				</div>
 				</div>
-				{ isSidebarVisible && <div className='lg:hidden flex flex-col'>
+				{ isSidebarVisible && <div className='lg:hidden flex flex-col pl-4 space-y-6 text-lg py-10'>
 				{links.map((listData, idx)=>
-						<Link href="">
+						<Link href={listData.href} key={idx}>
 						{	listData.name}
 						</Link>
 					)}
