@@ -120,7 +120,7 @@ export const Header = () => {
 				{' '}
 				<Link href="https://www.abcfoundationconnect.com/">
 					<Image
-						src="/public/images/newlogo.png"
+						src="/images/newlogo.png"
 						width={300}
 						height={100 / 3.78} // Calculated height based on the aspect ratio
 						alt="ABC Foundation Logo"
