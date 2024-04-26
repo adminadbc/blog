@@ -17,7 +17,22 @@ function hasUrl(
 	return !!navbarItem.url && navbarItem.url.length > 0;
 }
 
-const list = ["hi", "hello"]
+const links = [
+	{ name: "Home", href: "/main" },
+	{
+	  name: "About Us",
+	  href: "/main/about",
+	  submenu: true,
+	  submenuItems: [{ name: "Founder", href: "/main/founder" }],
+	},
+	{
+	  name: "Resources",
+	  href: "/main/resources",
+	  submenu: true,
+	  submenuItems: [{ name: "Articles", href: "/articles" }],
+	},
+	{ name: "Contact Us", href: "/main/contacts" },
+  ];
 
 export const Header = () => {
 	// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
@@ -97,9 +112,9 @@ export const Header = () => {
 						</Link>
 				</div>
 				<div className=' space-x-4 text-2xl hidden lg:flex'>
-					{list.map((listData, idx)=>
+					{links.map((listData, idx)=>
 						<Link href="">
-							hello
+						{	listData.name}
 						</Link>
 					)}
 					<Link
@@ -129,8 +144,20 @@ export const Header = () => {
 				}
 				</div>
 				</div>
-				{ isSidebarVisible && <div className='lg:hidden'>
-					Mobile pop section
+				{ isSidebarVisible && <div className='lg:hidden flex flex-col'>
+				{links.map((listData, idx)=>
+						<Link href="">
+						{	listData.name}
+						</Link>
+					)}
+					<Link
+							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
+							target='_blank'
+							className='text-black uppercase px-6 py-3 text-sm 
+					font-semibold rounded-lg
+						bg-abcf h-fit w-fit'	>
+						Donate
+					</Link>
 				</div>}
 			</div>
 			{/* <Container className="grid grid-cols-4 gap-5 px-5">
