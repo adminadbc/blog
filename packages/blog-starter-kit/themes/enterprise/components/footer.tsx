@@ -49,8 +49,8 @@ export const Footer = () => {
 	// const { publication } = useAppContext();
 	// const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className="bg-brand2 px-8 py-14">
-			<div className="container mx-auto">
+		<footer className=" bg-brand2 px-8 py-14">
+			<div className="container mx-auto w-9/12">
 				<div className="flex justify-between gap-4 md:grid-cols-2 lg:px-2">
 					<div className="mb-8 md:mb-0">
 						<Image
