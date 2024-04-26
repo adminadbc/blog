@@ -112,10 +112,10 @@ export const Header = () => {
 						</Link>
 				</div>
 				<div className='  text-2xl hidden lg:flex'>
-					<div className='flex space-x-4 mt-4 mr-16'>
+					<div className='flex space-x-8 mt-6 mr-32'>
 					{links.map((listData, idx)=>
 						<Link  href={listData.href} className='' key={idx}>
-						{	listData.name}
+					<h3>		{	listData.name}</h3>
 						</Link>
 					)}
 					</div>
@@ -146,10 +146,12 @@ export const Header = () => {
 				}
 				</div>
 				</div>
-				{ isSidebarVisible && <div className='lg:hidden flex flex-col pl-4 space-y-6 text-lg py-10'>
+				{ isSidebarVisible &&
+				 <div className={`lg:hidden flex flex-col pl-4 space-y-6 text-lg py-10 
+				transition-transform duration-500 transform ${isSidebarVisible ? 'translate-y-[-10]' : 'translate-y-0'}`}>
 				{links.map((listData, idx)=>
 						<Link href={listData.href} key={idx}>
-						{	listData.name}
+				<h3>		{	listData.name}</h3>
 						</Link>
 					)}
 					<Link
@@ -160,7 +162,9 @@ export const Header = () => {
 						bg-abcf h-fit w-fit'	>
 						Donate
 					</Link>
-				</div>}
+				</div>
+				}
+				
 			</div>
 			{/* <Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
