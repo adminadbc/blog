@@ -1,161 +1,110 @@
-'use client';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import { Button, Collapse, IconButton, Navbar } from '@material-tailwind/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-import Custom from './dropDown';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useState } from 'react';
+import { PublicationNavbarItem } from '../generated/graphql';
+import { Button } from './button';
+import { Container } from './container';
+import { useAppContext } from './contexts/appContext';
+import HamburgerSVG from './icons/svgs/HamburgerSVG';
+import { PublicationLogo } from './publication-logo';
+import PublicationSidebar from './sidebar';
 
-import clsx from 'clsx';
+function hasUrl(
+	navbarItem: PublicationNavbarItem,
+): navbarItem is PublicationNavbarItem & { url: string } {
+	return !!navbarItem.url && navbarItem.url.length > 0;
+}
 
-import { FaInstagramSquare } from 'react-icons/fa';
-import { FaLinkedin, FaSquareFacebook } from 'react-icons/fa6';
-
-const links = [
-	{ name: 'Home', href: '/main' },
-	{
-		name: 'About Us',
-		href: '/main/about',
-		submenu: true,
-		submenuItems: [{ name: 'Founder', href: '/main/founder' }],
-	},
-	{
-		name: 'Resources',
-		href: '/main/resources',
-		submenu: true,
-		submenuItems: [{ name: 'Articles', href: '/articles' }],
-	},
-	{ name: 'Contact Us', href: '/main/contacts' },
-];
 export const Header = () => {
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen((cur) => !cur);
-
-	const pathname = usePathname();
-
-	React.useEffect(() => {
-		window.addEventListener('resize', () => window.innerWidth >= 1060 && setOpen(false));
-	}, []);
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
-	return (
-		<Navbar
-			fullWidth
-			shadow={false}
-			color="transparent"
-			className="overflow-x-hidden-hidden absolute z-50 w-screen border-0 bg-white text-black"
-		>
-			<div className="md:sml-14 h-18 container mx-auto  flex items-center">
-				<Link href="/main">
-					<Image
-						src="/assets/newlogo.png"
-						width={300}
-						height={100 / 3.78}
-						alt="ABC Foundation Logo"
-					/>
-				</Link>
+	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>();
+	const { publication } = useAppContext();
+	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
+	const visibleItems = navbarItems.slice(0, 3);
+	const hiddenItems = navbarItems.slice(3);
 
-				<div className="mx-auto hidden items-center gap-10 text-2xl lg:flex">
-					{links.map((link, idx) =>
-						link.name == 'Resources' ? (
-							<Custom key={8} />
-						) : (
-							<Link
-								key={idx}
-								href={link.href}
-								className={clsx({
-									'text-abcf bg-sky-100': pathname === link.href,
-								})}
-							>
-								<h6 className="hidden md:block">{link.name}</h6>
-							</Link>
-						),
-					)}
-				</div>
-				{/* <div className="mr-4 mt-4"><SearchLayer /></div> */}
-				<div className="hidden lg:flex">
-					<Link
-						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
+	const toggleSidebar = () => {
+		setIsSidebarVisible((prevVisibility) => !prevVisibility);
+	};
+
+	const navList = (
+		<ul className="flex flex-row items-center gap-2 text-white">
+			{visibleItems.map((item) => (
+				<li key={item.url}>
+					<a
+						href={item.url}
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
+						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
-						<Button className="bg-abcf text-black" size="lg">
-							Donate
-						</Button>
-					</Link>
-				</div>
+						{item.label}
+					</a>
+				</li>
+			))}
 
-				<IconButton
-					variant="text"
-					color="white"
-					onClick={handleOpen}
-					className="ml-auto inline-block lg:hidden"
-				>
-					{open ? (
-						<XMarkIcon strokeWidth={2} className="mr-6 h-6 w-6 text-black" />
-					) : (
-						<Bars3Icon strokeWidth={2} className="mr-8 h-6 w-6 text-black" />
-					)}
-				</IconButton>
-			</div>
+			{hiddenItems.length > 0 && (
+				<li>
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild>
+							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
+								More
+							</button>
+						</DropdownMenu.Trigger>
 
-			<Collapse open={open}>
-				<div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
-					<ul className="flex flex-col gap-4 text-lg text-gray-900">
-						<li className="hover:text-abcf">
-							<Link href="/main">
-								<h6>Home</h6>
-							</Link>
-						</li>
-						<li className="hover:text-abcf">
-							<Link href="/main/about">
-								<h6>About Us</h6>
-							</Link>
-						</li>
-						<Custom />
-						<li className="hover:text-abcf">
-							<Link href="/main/contacts">
-								<h6>Contact Us</h6>
-							</Link>
-						</li>
-					</ul>
-					{/* <SearchLayer /> */}
-					<Link href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144">
-						<Button className="bg-abcf mt-5 text-black" size="lg">
-							Donate
-						</Button>
-					</Link>
-					<div className="mt-6 flex gap-4 ">
-						<a
-							href="https://www.facebook.com/ABCFoundationConnect/"
-							title="social"
-							target="_blank"
-							rel="noopener"
-							className="hover:text-abcf"
-						>
-							<FaSquareFacebook size={30} />
-						</a>
-						<a
-							href="https://www.linkedin.com/company/advocacy-for-better-communities-foundation-abc-foundation/"
-							title="social"
-							target="_blank"
-							rel="noopener"
-							className="hover:text-abcf"
-						>
-							<FaLinkedin size={30} />
-						</a>
-						<a
-							href="https://www.instagram.com/the.abcfoundation/"
-							title="social"
-							target="_blank"
-							rel="noopener"
-							className="hover:text-abcf"
-						>
-							<FaInstagramSquare size={30} />
-						</a>
+						<DropdownMenu.Portal>
+							<DropdownMenu.Content
+								className="w-48 rounded border border-gray-300 bg-white text-neutral-950 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
+								align="end"
+								sideOffset={5}
+							>
+								{hiddenItems.map((item) => (
+									<DropdownMenu.Item asChild key={item.url}>
+										<a
+											href={item.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+										>
+											{item.label}
+										</a>
+									</DropdownMenu.Item>
+								))}
+							</DropdownMenu.Content>
+						</DropdownMenu.Portal>
+					</DropdownMenu.Root>
+				</li>
+			)}
+		</ul>
+	);
+
+	return (
+		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900">
+			<Container className="grid grid-cols-4 gap-5 px-5">
+				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
+					<div className="lg:hidden">
+						<Button
+							type="outline"
+							label=""
+							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
+							onClick={toggleSidebar}
+						/>
+
+						{isSidebarVisible && (
+							<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
+						)}
+					</div>
+					<div className="hidden lg:block">
+						<PublicationLogo />
 					</div>
 				</div>
-			</Collapse>
-		</Navbar>
+				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
+					<nav className="hidden lg:block">{navList}</nav>
+					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
+				</div>
+			</Container>
+			<div className="mt-5 flex justify-center lg:hidden">
+				<PublicationLogo />
+			</div>
+		</header>
 	);
 };

@@ -52,6 +52,8 @@ const DropMenu: React.FC<DropMenuProps & { isOpen: boolean; toggleDropdown: () =
 };
 
 const Custom: React.FC = () => {
+	console.log('Custom component rendering');
+
 	const [openDropdown, setOpenDropdown] = useState<number | null>(null);
 	const toggleDropdown = (dropdownId: number) => {
 		setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
