@@ -111,7 +111,7 @@ export const Header = () => {
 					<Button
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						as="a"
-						label="Donate"
+						label="DONATE"
 						className="bg-abcf text-black"
 					/>
 				</div>
