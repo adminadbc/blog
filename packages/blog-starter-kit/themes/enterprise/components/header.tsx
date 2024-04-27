@@ -154,34 +154,55 @@ export const Header = () => {
 					}`}
 				>
 					<ul className="mb-4 flex flex-col space-y-4 pl-8">
-						<li><Link href="https://www.abcfoundationconnect.com/main"><h6>Home</h6></Link></li>
 						<li>
-							<Link href="https://www.abcfoundationconnect.com/main/about"><h6>About Us</h6></Link>
-						</li>
-						<li onClick={()=>setSlideDownX(!slideDownX)}>
-							<Link href=""><h6>Resources
-				</h6></Link>
-				{slideDownX && <div className='text-sm bg-white shadow-lg p-3 flex 
-				 flex-col space-y-4 rounded-lg w-fit'>
-					<Link href="https://blog.abcfoundationconnect.com">
-							<h6>Articles</h6></Link>
-							<Link href="https://www.abcfoundationconnect.com/main/resources/education">
-							<h6>Education</h6></Link>
-							</div>}
-							</li>
-						<li  onClick={()=>setSlideDown(!slideDown)}>
-							<Link href=""><h6>Initiatives</h6>
+							<Link href="https://www.abcfoundationconnect.com/main">
+								<h6>Home</h6>
 							</Link>
-							{slideDown && <div className='text-sm bg-white shadow-lg p-3 flex  flex-col space-y-4 rounded-lg w-fit'>
-					<Link href="https://www.abcfoundationconnect.com/main/initiatives/legal-connect">
-							<h6>Legal Communities Connects</h6></Link>
-							<Link href="https://www.abcfoundationconnect.com/main/initiatives/changemakers">
-							<h6>Changemakers
-</h6></Link>
-							</div>}
-							</li>
-			
-						<li><Link href="https://www.abcfoundationconnect.com/main"><h6>Contact Us</h6></Link></li>
+						</li>
+						<li>
+							<Link href="https://www.abcfoundationconnect.com/main/about">
+								<h6>About Us</h6>
+							</Link>
+						</li>
+						<li onClick={() => setSlideDownX(!slideDownX)}>
+							<Link href="">
+								<h6>Resources</h6>
+							</Link>
+							{slideDownX && (
+								<div
+									className="flex w-fit flex-col space-y-4 rounded-lg 
+				 bg-white p-3 text-sm shadow-lg"
+								>
+									<Link href="https://blog.abcfoundationconnect.com">
+										<h6>Articles</h6>
+									</Link>
+									<Link href="https://www.abcfoundationconnect.com/main/resources/education">
+										<h6>Education</h6>
+									</Link>
+								</div>
+							)}
+						</li>
+						<li onClick={() => setSlideDown(!slideDown)}>
+							<Link href="">
+								<h6>Initiatives</h6>
+							</Link>
+							{slideDown && (
+								<div className="flex w-fit flex-col space-y-4 rounded-lg  bg-white p-3 text-sm shadow-lg">
+									<Link href="https://www.abcfoundationconnect.com/main/initiatives/legal-connect">
+										<h6>Legal Communities Connects</h6>
+									</Link>
+									<Link href="https://www.abcfoundationconnect.com/main/initiatives/changemakers">
+										<h6>Changemakers</h6>
+									</Link>
+								</div>
+							)}
+						</li>
+
+						<li>
+							<Link href="https://www.abcfoundationconnect.com/main">
+								<h6>Contact Us</h6>
+							</Link>
+						</li>
 					</ul>
 					<Link
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"

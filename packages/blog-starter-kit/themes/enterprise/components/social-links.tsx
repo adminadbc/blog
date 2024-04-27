@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useAppContext } from './contexts/appContext';
-import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from './icons';
+import { GithubSVG, LinkedinSVG, RssSVG, XSVG } from './icons';
 
 export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const { publication } = useAppContext();
@@ -48,7 +48,7 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 								<LinkedinSVG className="h-5 w-5 stroke-current" />
 							</a>
 						)}
-						{publication.links?.hashnode && (
+						{/* {publication.links?.hashnode && (
 							<a
 								href={publication.links.hashnode}
 								target="_blank"
@@ -58,7 +58,7 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 							>
 								<HashnodeSVG className="h-5 w-5 stroke-current" />
 							</a>
-						)}
+						)} */}
 					</>
 				)}
 
