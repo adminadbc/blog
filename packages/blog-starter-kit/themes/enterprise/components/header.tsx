@@ -60,11 +60,12 @@ export const Header = () => {
 	};
 
 	return (
-		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
+		<header className="border-b bg-white py-3 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className="mx-auto  flex justify-around md:justify-between pb-4 align-middle md:pb-0 ">
-					<div className="pl-5 md:pl-10">
+				<div className="mx-auto 
+				flex justify-around md:justify-between pb-4 align-middle md:pb-0 ">
+					<div className="pl-5 ">
 						<Link href="https://www.abcfoundationconnect.com/">
 							<Image
 								src="/images/newlogo.png"
@@ -114,7 +115,7 @@ export const Header = () => {
 						<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 							target="_blank"
-							className="bg-abcf mr-10 mt-4 h-fit rounded-lg 
+							className="bg-abcf mr-5 mt-4 h-fit rounded-lg 
                     px-6 py-3
                         text-sm font-semibold uppercase text-black "
 						>
