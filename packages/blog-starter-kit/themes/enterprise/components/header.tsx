@@ -29,8 +29,16 @@ const links = [
 	  name: "Resources",
 	  href: "https://www.abcfoundationconnect.com/main/resources",
 	  submenu: true,
-	  submenuItems: [{ name: "Articles", href: "https://www.abcfoundationconnect.com/articles" }],
-	},
+	  submenuItems: [{ name: "Articles", href: "https://www.abcfoundationconnect.com/articles" },
+	   { name: "Education", href: "https://www.abcfoundationconnect.com/articles" }],
+	},	{
+		name: "Initiatives",
+		href: "https://www.abcfoundationconnect.com/main/resources",
+		submenu: true,
+		submenuItems: [{ name: "Legal Communities Connects", href: "https://www.abcfoundationconnect.com/articles" },{
+			name : "Changemakers", href : ""
+		}],
+	  },
 	{ name: "Contact Us", href: "https://www.abcfoundationconnect.com/main/contacts" },
   ];
 
@@ -122,11 +130,11 @@ export const Header = () => {
 						<Link  href={listData.href} className='' key={idx}>
 							{listData.submenu ? <div className='group relative'>
 								<h3>{listData.name}</h3>
-								<div className='hidden absolute group-hover:block z-[999] 
+								<div className='hidden bg-white absolute group-hover:flex flex-col space-y-3 z-[999] 
 								w-[200px] rounded-lg shadow-lg p-3 border'>
 									
 								{listData.submenuItems.map((data, idx)=>
-								<h6 className='text-sm'>{data.name}</h6>)}
+								<h6 className='text-sm hover:text-abcf'>{data.name}</h6>)}
 								</div>
 							</div> :
 							<h3>		{	listData.name}</h3> }
