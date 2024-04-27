@@ -75,7 +75,7 @@ export const Header = () => {
 							/>
 						</Link>
 					</div>
-					<div className="hidden text-2xl lg:flex">
+					<div className="hidden text-2xl xl:flex">
 						<div className="mt-6 flex space-x-8">
 							{links.map((listData, idx) => (
 								<div key={idx}>
@@ -110,7 +110,7 @@ export const Header = () => {
 							))}
 						</div>
 					</div>
-					<div className="hidden text-xl lg:flex">
+					<div className="hidden text-xl xl:flex">
 						<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 							target="_blank"
@@ -121,7 +121,7 @@ export const Header = () => {
 							Donate
 						</Link>
 					</div>
-					<div className="pt-4 lg:hidden">
+					<div className="pt-4 xl:hidden">
 						{isSidebarVisible ? (
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -147,13 +147,13 @@ export const Header = () => {
 				</div>
 			</div>
 			{/* Mobile version */}
-			<div className={`overflow-hidden lg:hidden ${isSidebarVisible ? 'h-fit' : 'h-0'}`}>
+			<div className={`overflow-hidden xl:hidden ${isSidebarVisible ? 'h-fit' : 'h-0'}`}>
 				<div
 					className={`py-10 text-lg transition ${
 						isSidebarVisible ? 'translate-y-0' : '-translate-y-96'
 					}`}
 				>
-					<ul className="mb-4 flex flex-col space-y-4 pl-8">
+					<ul className="mb-4 flex flex-col space-y-4 pl-8 md:pl-40">
 						<li>
 							<Link href="https://www.abcfoundationconnect.com/main">
 								<h6>Home</h6>
@@ -207,13 +207,13 @@ export const Header = () => {
 					<Link
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						target="_blank"
-						className="bg-abcf ml-6 h-fit w-fit rounded-lg 
+						className="bg-abcf ml-6 md:ml-40 h-fit w-fit rounded-lg 
                 px-6 py-3
                     text-sm font-semibold uppercase text-black"
 					>
 						Donate
 					</Link>
-					<div className="ml-6 mt-8 flex space-x-3">
+					<div className="ml-6 md:ml-40 mt-8 flex space-x-3">
 						<Link
 							href="https://www.linkedin.com/company/advocacy-for-better-communities-foundation-abc-foundation/"
 							target="_blank"
