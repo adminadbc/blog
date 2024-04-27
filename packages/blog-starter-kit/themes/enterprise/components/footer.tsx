@@ -93,7 +93,7 @@ export const Footer = () => {
 					<div className="grid grid-cols-2 justify-between gap-6 text-white lg:grid-cols-3">
 						{links.map(({ title, items }) => (
 							<div key={title}>
-								<h6 className="mb-5 mr-2 text-2xl font-bold">{title}</h6>
+								<p className="mb-5 mr-2 font-bold sm:text-xl md:text-2xl lg:text-2xl">{title}</p>
 								<ul>
 									{items.map((link, index) => (
 										<li key={`${title}-${index}`} className="mb-2">
