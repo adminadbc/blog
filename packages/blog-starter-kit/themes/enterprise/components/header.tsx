@@ -173,9 +173,9 @@ export const Header = () => {
 							<Link href=""><h6>Initiatives</h6>
 							</Link>
 							{slideDown && <div className='text-sm bg-white shadow-lg p-3 flex  flex-col space-y-4 rounded-lg w-fit'>
-					<Link href="https://blog.abcfoundationconnect.com">
+					<Link href="https://www.abcfoundationconnect.com/main/initiatives/legal-connect">
 							<h6>Legal Communities Connects</h6></Link>
-							<Link href="https://www.abcfoundationconnect.com/main/resources/education">
+							<Link href="https://www.abcfoundationconnect.com/main/initiatives/changemakers">
 							<h6>Changemakers
 </h6></Link>
 							</div>}
