@@ -30,13 +30,13 @@ const links = [
 	  href: "https://www.abcfoundationconnect.com/main/resources",
 	  submenu: true,
 	  submenuItems: [{ name: "Articles", href: "https://www.abcfoundationconnect.com/articles" },
-	   { name: "Education", href: "https://www.abcfoundationconnect.com/articles" }],
+	   { name: "Education", href: "https://www.abcfoundationconnect.com/main/resources/education" }],
 	},	{
 		name: "Initiatives",
 		href: "https://www.abcfoundationconnect.com/main/resources",
 		submenu: true,
-		submenuItems: [{ name: "Legal Communities Connects", href: "https://www.abcfoundationconnect.com/articles" },{
-			name : "Changemakers", href : ""
+		submenuItems: [{ name: "Legal Communities Connects", href: "https://www.abcfoundationconnect.com/main/initiatives/legal-connect" },{
+			name : "Changemakers", href : "https://www.abcfoundationconnect.com/main/initiatives/changemakers"
 		}],
 	  },
 	{ name: "Contact Us", href: "https://www.abcfoundationconnect.com/main/contacts" },
@@ -51,6 +51,7 @@ export const Header = () => {
 	const hiddenItems = navbarItems.slice(3);
 	const [slideDown, setSlideDown] =useState<boolean>(false)
 	const [slideDownX, setSlideDownX] =useState<boolean>(false)
+	const [slideDownT, setSlideDownT] =useState<boolean>(false)
 
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
@@ -172,21 +173,27 @@ export const Header = () => {
 				 <div className={`text-lg py-10 
 				transition ${isSidebarVisible ? 'translate-y-0' : '-translate-y-96'}`}>
 			<ul className='flex flex-col pl-8 space-y-4 mb-4'>
-				<li><Link href=""><h3>Home</h3></Link></li>
-				<li><Link href=""><h3>About Us</h3></Link></li>
+				<li><Link href="https://www.abcfoundationconnect.com/main"><h3>Home</h3></Link></li>
+				<li className='relative' onClick={()=>setSlideDownT(!slideDownT)}><Link href=""><h3>About Us</h3></Link>{
+					slideDownT &&
+				<div className='shadow-lg bg-white flex flex-col space-y-3 text-sm w-fit p-4  rounded-lg '>
+					<Link href="https://www.abcfoundationconnect.com/main/founder"><h6>Founder</h6></Link>
+				</div>}
+				</li>
 				<li className='relative' onClick={()=>setSlideDown(!slideDown)}><Link href=""><h3>Resources</h3></Link>{
 					slideDown &&
 				<div className='shadow-lg bg-white flex flex-col space-y-3 text-sm w-fit p-4  rounded-lg '>
-					<Link href={""}><h6>Education</h6></Link>
-					<Link href={""}><h6>Articles</h6></Link></div>}
+					<Link href="https://www.abcfoundationconnect.com/main/resources/education"><h6>Education</h6></Link>
+					<Link href="https://www.abcfoundationconnect.com/articles"><h6>Articles</h6></Link></div>}
 				</li>
 				<li className='relative' onClick={()=>setSlideDownX(!slideDownX)}><Link href=""><h3>Initiatives</h3></Link>{
 					slideDownX &&
 				<div className='shadow-lg bg-white flex flex-col space-y-3 text-sm w-fit p-4  rounded-lg '>
-					<Link href={""}><h6> Legal Communities Connects</h6></Link>
-					<Link href={""}><h6>Changemakers</h6></Link></div>}
+					<Link href="https://www.abcfoundationconnect.com/main/initiatives/legal-connect"><h6> Legal Communities Connects</h6></Link>
+					<Link href="https://www.abcfoundationconnect.com/main/initiatives/changemakers"><h6>Changemakers</h6>
+					</Link></div>}
 				</li>
-				<li><Link href=""><h3>Contact Us</h3></Link></li>
+				<li><Link href="https://www.abcfoundationconnect.com/main/contact"><h3>Contact Us</h3></Link></li>
 			</ul>
 					<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
