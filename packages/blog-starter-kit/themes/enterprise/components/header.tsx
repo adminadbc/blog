@@ -17,7 +17,7 @@ const links = [
 	{
 		name: 'About Us',
 		href: 'https://www.abcfoundationconnect.com/main/about',
-		submenu: true,
+		submenu: false,
 		submenuItems: [{ name: 'Founder', href: 'https://www.abcfoundationconnect.com/main/founder' }],
 	},
 	{
