@@ -41,6 +41,7 @@ export const Header = () => {
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
+	const [slideDown, setSlideDown] =useState<boolean>(false)
 
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
@@ -100,7 +101,7 @@ export const Header = () => {
 		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className=" flex justify-between align-middle pb-4 ">
+				<div className=" flex justify-between align-middle pb-4 md:pb-0 ">
 				<div className='pl-5 md:pl-10'>
 				<Link href="https://www.abcfoundationconnect.com/">
 							<Image
@@ -111,11 +112,20 @@ export const Header = () => {
 							/>
 						</Link>
 				</div>
-				<div className='  text-2xl hidden lg:flex'>
+				<div className='  text-xl hidden lg:flex'>
 					<div className='flex space-x-8 mt-6 mr-32'>
 					{links.map((listData, idx)=>
 						<Link  href={listData.href} className='' key={idx}>
-					<h3>		{	listData.name}</h3>
+							{listData.submenu ? <div className='group relative'>
+								<h3>{listData.name}</h3>
+								<div className='hidden absolute group-hover:block z-[999] w-[200px] rounded-lg shadow-lg p-3 border'>
+									
+								{listData.submenuItems.map((data, idx)=>
+								<h6 className='text-sm'>{data.name}</h6>)}
+								</div>
+							</div> :
+							<h3>		{	listData.name}</h3> }
+					
 						</Link>
 					)}
 					</div>
@@ -124,7 +134,7 @@ export const Header = () => {
 							target='_blank'
 							className='text-black uppercase px-6 py-3 text-sm 
 					font-semibold rounded-lg
-						bg-abcf h-fit mt-2'	>
+						bg-abcf h-fit mt-4 mr-10 '	>
 						Donate
 					</Link>
 				</div>
@@ -150,7 +160,12 @@ export const Header = () => {
 				transition ${isSidebarVisible ? 'translate-y-0' : '-translate-y-96'}`}>
 				{links.map((listData, idx)=>
 						<Link href={listData.href} key={idx}>
-				<h3>		{	listData.name}</h3>
+				{listData.submenu ? <div className='group'>
+								<h3>{listData.name}</h3>
+								{listData.submenuItems.map((data, idx)=>
+								<h6 className='hidden group-hover:block  text-xl'>{data.name}</h6>)}
+							</div> :
+							<h3>		{	listData.name}</h3> }
 						</Link>
 					)}
 					<Link
