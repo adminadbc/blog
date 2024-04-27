@@ -76,8 +76,8 @@ export const Header = () => {
 							/>
 						</Link>
 					</div>
-					<div className="hidden text-xl lg:flex">
-						<div className="mr-32 mt-6 flex space-x-8">
+					<div className="hidden text-2xl lg:flex">
+						<div className="mt-6 flex space-x-8">
 							{links.map((listData, idx) => (
 								<div key={idx}>
 									{listData.submenu ? (
