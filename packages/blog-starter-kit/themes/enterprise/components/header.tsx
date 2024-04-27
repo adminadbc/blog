@@ -129,7 +129,7 @@ export const Header = () => {
 								width="24"
 								height="24"
 								fill="currentColor"
-								className="bi bi-x-lg mr-3 mt-3"
+								className="bi bi-x-lg mr-3 md:mr-10 mt-3"
 								viewBox="0 0 16 16"
 							>
 								<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
@@ -138,8 +138,8 @@ export const Header = () => {
 							<Button
 								type="outline"
 								label=""
-								icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-								className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
+								icon={<HamburgerSVG className="h-5 w-5 md:h-8 md:w-8 stroke-current" />}
+								className="bg-abcf mr-8 rounded-xl border-transparent !px-3 !py-2 text-black "
 								onClick={toggleSidebar}
 							/>
 						)}
