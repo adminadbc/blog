@@ -63,7 +63,7 @@ export const Header = () => {
 		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className="mx-auto flex justify-around pb-4 align-middle md:pb-0 ">
+				<div className="mx-auto  flex justify-around md:justify-between pb-4 align-middle md:pb-0 ">
 					<div className="pl-5 md:pl-10">
 						<Link href="https://www.abcfoundationconnect.com/">
 							<Image
