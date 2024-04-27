@@ -1,7 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { Container } from './container';
@@ -42,10 +42,13 @@ export const Header = () => {
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
 	const [slideDown, setSlideDown] =useState<boolean>(false)
+	const [slideDownX, setSlideDownX] =useState<boolean>(false)
 
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
 	};
+
+	
 
 	const navList = (
 		<ul className="flex flex-row items-center gap-2 text-black">
@@ -109,6 +112,7 @@ export const Header = () => {
 								width={300}
 								height={100 / 3.78} // Calculated height based on the aspect ratio
 								alt="ABC Foundation Logo"
+								className='w-52 md:w-fit '
 							/>
 						</Link>
 				</div>
@@ -118,7 +122,8 @@ export const Header = () => {
 						<Link  href={listData.href} className='' key={idx}>
 							{listData.submenu ? <div className='group relative'>
 								<h3>{listData.name}</h3>
-								<div className='hidden absolute group-hover:block z-[999] w-[200px] rounded-lg shadow-lg p-3 border'>
+								<div className='hidden absolute group-hover:block z-[999] 
+								w-[200px] rounded-lg shadow-lg p-3 border'>
 									
 								{listData.submenuItems.map((data, idx)=>
 								<h6 className='text-sm'>{data.name}</h6>)}
@@ -156,27 +161,34 @@ export const Header = () => {
 				</div>
 				{/* { isSidebarVisible && */}
 				<div className={`lg:hidden overflow-hidden ${isSidebarVisible ? 'h-fit' : 'h-0'}`}>
-				 <div className={` flex flex-col pl-8 space-y-6 text-lg py-10 
+				 <div className={`text-lg py-10 
 				transition ${isSidebarVisible ? 'translate-y-0' : '-translate-y-96'}`}>
-				{links.map((listData, idx)=>
-						<Link href={listData.href} key={idx}>
-				{listData.submenu ? <div className='group'>
-								<h3>{listData.name}</h3>
-								{listData.submenuItems.map((data, idx)=>
-								<h6 className='hidden group-hover:block  text-xl'>{data.name}</h6>)}
-							</div> :
-							<h3>		{	listData.name}</h3> }
-						</Link>
-					)}
+			<ul className='flex flex-col pl-8 space-y-4 mb-4'>
+				<li><Link href=""><h3>Home</h3></Link></li>
+				<li><Link href=""><h3>About Us</h3></Link></li>
+				<li className='relative' onClick={()=>setSlideDown(!slideDown)}><Link href=""><h3>Resources</h3></Link>{
+					slideDown &&
+				<div className='shadow-lg bg-white flex flex-col space-y-3 text-sm w-fit p-4  rounded-lg '>
+					<Link href={""}><h6>Education</h6></Link>
+					<Link href={""}><h6>Articles</h6></Link></div>}
+				</li>
+				<li className='relative' onClick={()=>setSlideDownX(!slideDownX)}><Link href=""><h3>Initiatives</h3></Link>{
+					slideDownX &&
+				<div className='shadow-lg bg-white flex flex-col space-y-3 text-sm w-fit p-4  rounded-lg '>
+					<Link href={""}><h6> Legal Communities Connects</h6></Link>
+					<Link href={""}><h6>Changemakers</h6></Link></div>}
+				</li>
+				<li><Link href=""><h3>Contact Us</h3></Link></li>
+			</ul>
 					<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 							target='_blank'
 							className='text-black uppercase px-6 py-3 text-sm 
 					font-semibold rounded-lg
-						bg-abcf h-fit w-fit'	>
+						bg-abcf h-fit w-fit ml-6'	>
 						Donate
 					</Link>
-					<div className='flex space-x-3'>
+					<div className='flex space-x-3 ml-6 mt-8'>
 						<Link href="https://www.linkedin.com/company/advocacy-for-better-communities-foundation-abc-foundation/" target='_blank'>
 						<svg xmlns="http://www.w3.org/2000/svg" 
 						width="24" height="24" fill="currentColor" className="bi bi-linkedin" viewBox="0 0 16 16">
