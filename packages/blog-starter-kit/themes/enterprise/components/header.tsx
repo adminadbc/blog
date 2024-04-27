@@ -28,7 +28,7 @@ const links = [
 		submenu: true,
 		submenuItems: [
 			{ name: 'Articles', href: 'https://www.abcfoundationconnect.com/articles' },
-			{ name: 'Education', href: 'https://www.abcfoundationconnect.com/articles' },
+			{ name: 'Education', href: 'https://blog.abcfoundationconnect.com/' },
 		],
 	},
 	{
@@ -36,10 +36,13 @@ const links = [
 		href: 'https://www.abcfoundationconnect.com/main/resources',
 		submenu: true,
 		submenuItems: [
-			{ name: 'Legal Communities Connects', href: 'https://www.abcfoundationconnect.com/articles' },
+			{
+				name: 'Legal Communities Connects',
+				href: 'https://www.abcfoundationconnect.com/main/initiatives/legal-connect',
+			},
 			{
 				name: 'Changemakers',
-				href: '',
+				href: 'https://www.abcfoundationconnect.com/main/initiatives/changemakers',
 			},
 		],
 	},
@@ -138,7 +141,7 @@ export const Header = () => {
 								border bg-white p-3 shadow-lg group-hover:flex"
 											>
 												{listData.submenuItems.map((data, idx) => (
-													<h6 className="hover:text-abcf text-sm" key="idx">
+													<h6 className="hover:text-abcf text-sm" key={idx}>
 														{data.name}
 													</h6>
 												))}
