@@ -60,7 +60,7 @@ export const Header = () => {
 	};
 
 	return (
-		<header className="border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
+		<header className="mx-auto w-9/12 border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
 				<div className="mx-auto  flex justify-around pb-4 align-middle md:justify-between md:pb-0 ">

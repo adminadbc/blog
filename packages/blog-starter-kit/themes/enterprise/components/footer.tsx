@@ -51,7 +51,7 @@ export const Footer = () => {
 	return (
 		<footer className=" bg-brand2 px-8 py-14">
 			<div className="container mx-auto w-9/12">
-				<div className="flex flex-col justify-between gap-4 md:grid-cols-2 lg:px-2">
+				<div className="flex flex-col justify-between gap-4 md:grid-cols-2  lg:px-2">
 					<div className="mb-8 md:mb-0">
 						<Image
 							src="/images/newlogowhite.png"
@@ -124,31 +124,6 @@ export const Footer = () => {
 						</a>
 					</p>
 				</div>
-				{/* <Container className="px-5"> */}
-				{/* {PUBLICATION_LOGO ? (
-					<div className="mb-20 flex w-full flex-row justify-start">
-						<Link
-							href={'/'}
-							aria-label={`${publication.title} home page`}
-							className="flex flex-row items-center gap-5"
-						>
-							<Image
-								className="block w-40"
-								src={PUBLICATION_LOGO}
-								alt={publication.title}
-								width={300}
-								height={150}
-							/>
-						</Link>
-					</div>
-				) : (
-					<p className="mb-20 text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">
-						{publication.title}
-					</p>
-				)} */}
-
-				{/* <SocialLinks /> */}
-				{/* </Container> */}
 			</div>
 		</footer>
 	);
