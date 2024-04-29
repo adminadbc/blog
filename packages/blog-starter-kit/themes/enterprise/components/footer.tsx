@@ -28,7 +28,7 @@ const links = [
 				url: 'https://www.abcfoundationconnect.com/main/initiatives/changemakers',
 			},
 			{
-				name: 'Legal Community Connect',
+				name: 'The Law Spot',
 				url: 'https://www.abcfoundationconnect.com/main/initiatives/legal-connect',
 			},
 			{
