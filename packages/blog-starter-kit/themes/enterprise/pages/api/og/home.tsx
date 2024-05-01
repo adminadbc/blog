@@ -2,8 +2,6 @@ import { resizeImage } from '@starter-kit/utils/image';
 import { ImageResponse } from '@vercel/og';
 import { type NextRequest } from 'next/server';
 import { DEFAULT_AVATAR } from '../../../utils/const';
-import {fetchVideos } from "../../../components/updateAlgolia"
-import {fetchPublication } from "../../../components/getHashnode"
 
 export const config = {
 	runtime: 'edge',
@@ -61,8 +59,6 @@ export default async function handler(req: NextRequest) {
 
 	const bannerBackground = '#f1f5f9';
 	const photo = userPhoto || DEFAULT_AVATAR;
-	fetchVideos();
-	fetchPublication()
 	return new ImageResponse(
 		(
 			<div
