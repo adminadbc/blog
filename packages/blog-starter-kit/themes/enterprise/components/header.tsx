@@ -64,7 +64,7 @@ export const Header = () => {
 		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800  dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className="mx-auto flex w-10/12 items-center justify-around pb-4 align-middle md:justify-between md:pb-0 ">
+				<div className="mx-auto flex items-center justify-around pb-4 align-middle sm:w-11/12 md:justify-between md:pb-0 lg:w-10/12 ">
 					<div className="pl-5 md:pl-10">
 						<Link href="https://www.abcfoundationconnect.com/">
 							<Image
@@ -123,7 +123,7 @@ export const Header = () => {
 							Donate
 						</Link>
 					</div>
-					<div className="pt-4 xl:hidden">
+					<div className="xl:hidden">
 						{isSidebarVisible ? (
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@ export const Header = () => {
 								type="outline"
 								label=""
 								icon={<HamburgerSVG className="h-5 w-5 stroke-current md:h-8 md:w-8" />}
-								className="bg-abcf mr-8 rounded-xl border-transparent !px-3 !py-2 text-black "
+								className="bg-abcf rounded-xl border-transparent !px-3 !py-2 text-black "
 								onClick={toggleSidebar}
 							/>
 						)}
@@ -171,10 +171,7 @@ export const Header = () => {
 								<h6>Resources</h6>
 							</Link>
 							{slideDownX && (
-								<div
-									className="flex w-fit flex-col space-y-4 rounded-lg 
-				 bg-white p-3 text-sm shadow-lg"
-								>
+								<div className="flex w-fit flex-col space-y-4 rounded-lg bg-white p-3 text-sm shadow-lg">
 									<Link href="https://blog.abcfoundationconnect.com">
 										<h6>Articles</h6>
 									</Link>
@@ -209,9 +206,7 @@ export const Header = () => {
 					<Link
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 						target="_blank"
-						className="bg-abcf ml-6 h-fit w-fit rounded-lg px-6 
-                py-3 text-sm
-                    font-semibold uppercase text-black md:ml-40"
+						className="bg-abcf ml-6 h-fit w-fit rounded-lg px-6 py-3 text-sm font-semibold uppercase text-black md:ml-40"
 					>
 						Donate
 					</Link>
