@@ -26,6 +26,7 @@
 		"algoliasearch": "^4.23.3",
 		"clsx": "^2.1.1",
 		"date-fns": "^2.30.0",
+		"googleapis": "^135.0.0",
 		"graphql-request": "^6.1.0",
 		"gray-matter": "^4.0.3",
 		"html-react-parser": "^4.2.2",

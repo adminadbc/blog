@@ -1,118 +1,85 @@
-"use client"
-
-import algoliasearch from "algoliasearch";
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 import { CiSearch } from "react-icons/ci";
 import { useState, useEffect } from "react";
-import { IoCloseOutline } from "react-icons/io5"; 
+import { index , indexTwo} from "./algoliaIndex";
+import Link from "next/link";
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-const userId = process.env.NEXT_PUBLIC_USER_ID;
-// Connect and authenticate with your Algolia app
-const client = algoliasearch(API_KEY!, userId!);
-
-let hiStore: string = ""
-
-// let historyData : string | null = ""
-// if (typeof window !== 'undefined') {
-    // Perform localStorage action
-//     historyData = localStorage.getItem("recent_searches");
-//   }
-
-// if(historyData === null){
-//   localStorage.setItem("recent_searches", hiStore)
-// }
 
 let resultList: any[];
 
 function SearchLayer() {
   const [pop, setPop] = useState(false);
-  const [history, setHistory ] = useState(true)
-  const [show, setShow] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [list, setList] = useState<any[]>([]);
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let data = e.target.value;
-    if (data.length > 0) {
-    //   let latest = historyData?.split(" ")
-    //   if(latest?.length! > 3){
-    //     latest?.unshift(data)
-    //   latest?.pop()
-    //   }
-    
-    //   localStorage.setItem("recent_searches", latest?.toString()!)
-    //   console.log(localStorage.getItem("recent_searches"))
-
-
-    // Making reference to the index on Algolia
-      const index = client.initIndex("test");
-      index.search(data).then(({ hits }) => {
-        hits.length > 0 ? setShow(true) : null;
-        setInputValue(data);
-        setHistory(false)
-        resultList = hits;
-      });
-    }else if(data == "" || data.length == 0) {
-      resultList = [];
-    }
-  };
-//   const truncateText = (text: string, maxLength: number) => {
-//     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
-//   };
-
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<any[]>([]);
 
   useEffect(() => {
-    setList(resultList);
-  }, [inputValue]);
+    const search = async () => {
+      if (query.trim() !== '') {
+        try {
+          // Perform search query on both indices
+          const [result1, result2] = await Promise.all([
+            index.search(query),
+            indexTwo.search(query)
+          ]);
+
+          // Combine the results from both indices
+          const combinedResults = [...result1.hits, ...result2.hits];
+          setResults(combinedResults);
+        } catch (error) {
+          console.error('Error performing search:', error);
+        }
+      } else {
+        setResults([]);
+      }
+    };
+
+    search();
+  }, [query]);
   return (
     <div>
-         {pop ? (
-       <div className="absolute top-0 w-screen h-screen left-0 overflow-clip">
-         <div  
-          className="absolute top-0 w-screen overflow-x-hidden
-       h-screen z-[100]  bg-white left-0 backdrop-blur-md bg-opacity-20
-        bg-blur-sm" 
-        onClick={()=>{setPop(false)}}
-        >
+      {pop &&
+        <div className="fixed z-[9999] top-0 w-screen h-screen left-0 overflow-clip">
+        <div className="relative pt-16">
+    <div className="absolute h-screen w-screen top-0 left-0 bg-black backdrop-blur-md	 opacity-80" 
+    onClick={()=>{setPop(false)}}>
+    </div>
+ <div className="relative bg-white w-5/6 md:w-1/2 mx-auto p-10 rounded-lg drop-shadow-lg">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search..."
+          className="w-full h-16 outline-none "
+          autoFocus={true}
+        />
+        <div className="flex flex-col space-y-3">
+          {results.map((hit, idx) => (
+            <div key={hit.objectID} className="flex justify-start align-middle   border-t border-gray-500">
+               <div className="py-3">
+                <h6 className="font-semibold text-base mb-2">{hit.title}</h6>
+                <p className="text-xs mb-3">{hit.brief}</p>
+                { hit.objectID.length > 12 ?<Link href={hit.url} target="_blank" className="px-6 py-1 flex w-fit gap-2 text-xs
+                 text-white bg-blue-600"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-journal-bookmark-fill" viewBox="0 0 16 16">
+                 <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
+                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+               </svg>
+             <span> Read Articles</span></Link> :
+                  <Link href={hit.url} target="_blank" className="px-6 py-1 text-xs
+                 text-white bg-red-600 flex w-fit  gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" className="bi bi-youtube" viewBox="0 0 16 16">
+                 <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+               </svg>
+              <span> watch video</span></Link>}
+                </div> 
+            </div>
+          ))}
         </div>
-        <div className="bg-white rounded-lg py-4 drop-shadow-lg z-[9999]
-     md:w-[70vw] mt-20 flex justify-center flex-col align-middle h-fit relative mx-auto">
-      
-
-      {/* SEARCHBOX HERE */}
-      <div    className=" py-3 px-6 gap-1 flex border-b border-black text-center relative" >
-        <CiSearch className="mt-2 font-bold"  />
-      <input
-            type="text"
-            name="name"
-            className="outline-none w-full pl-2"
-            onChange={(e) => {
-              handleSearch(e);
-            }}
-            autoFocus={true}
-            placeholder="search reasources..."
-            autoComplete="off"
-          />
-          <div onClick={()=>{setPop(false);}
-        } className="p-2 rounded-lg border border-gray-400 cursor-pointer text-sm ml-auto">ESC</div>
-        </div>
-          <div className="relative flex flex-col ">
-            {history && <div className="flex flex-col gap-2">
-              <div className="font-semibold text-xl px-7 py-5 border-b border-gray-300">Recents </div>
-
-              {/* NO HISTORY DISPLAY */}
-              {/* <ul className="flex flex-col text-sm">{historyData?.split(" ").map((data, idc)=>
-                data.length > 2 && <li key={idc} className="px-7 border-b border-gray-300 text-gray-500 py-5">{data}
-              </li>)}
-              </ul> */}
-              </div>}
-      
-          </div>
       </div>
-        </div>
-      ) : (
-        <div className="border rounded-md w-32 mt-6 border-black mb-2 lg:mt-0 lg:w-28  flex">
+   </div>
+        </div>}
+  
+        <div className="border rounded-md w-32 mt-6 border-black/15 hidden xl:flex lg:mt-0 lg:w-28">
           <input
             onClick={() => setPop(true)}
             placeholder="search..."
@@ -121,46 +88,13 @@ function SearchLayer() {
           />
           <CiSearch className="mt-2" size={16} />
         </div>
-      )}
+      <div className="block xl:hidden w-fit" onClick={()=>setPop(true)}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>
+      </div>
     </div>
   );
 }
 
 export default SearchLayer;
-
-
-// <IoCloseOutline
-// onClick={() => setPop(false)}
-// color="black"
-// size={32}
-// className="absolute top-10 right-10 bg-red-300 hover:cursor-pointer  rounded-full"
-// />
-
-// {!history &&    resultList?.map((listData, idx) => (
-//     <Link
-//       target="_blank"
-//       href={listData.link.replace("abcfoundationconnect.hashnode.dev", "abc-kit.vercel.app")}
-//       key={idx}
-//       className="border-b border-gray-400 flex px-5"
-//     >    
-//     <Image
-//     src={listData.image}
-//     alt={listData.title}
-//     width={100}
-//     height={100}
-//     className="h-full"
-//   />
-//       <div className="py-2 px-2 text-left w-full flex flex-col justify-center align-middle">
-//         <div className="font-semibold text-base">
-//           {listData.title}
-//         </div>
-
-//       </div>
-  
-//     </Link>
-//   ))}
-
-  {/* 
-        <p className="text-xs md:text-sm my-1">
-          {truncateText(listData.article, 100)}
-        </p> */}

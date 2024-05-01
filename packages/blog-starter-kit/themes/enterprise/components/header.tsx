@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
+import SearchLayer from "./searchBox";
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -60,10 +61,10 @@ export const Header = () => {
 	};
 
 	return (
-		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900 md:w-11/12 lg:w-9/12">
+		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800  dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className="mx-auto  flex justify-around pb-4 align-middle md:justify-between md:pb-0 ">
+				<div className="mx-auto w-full flex justify-around pb-4 align-middle md:justify-between md:pb-0 ">
 					<div className="pl-5 md:pl-10">
 						<Link href="https://www.abcfoundationconnect.com/">
 							<Image
@@ -75,8 +76,8 @@ export const Header = () => {
 							/>
 						</Link>
 					</div>
-					<div className="hidden text-2xl xl:flex">
-						<div className="mt-6 flex space-x-8">
+					<div className="hidden text-xl xl:flex">
+						<div className="mt-6 flex space-x-6">
 							{links.map((listData, idx) => (
 								<div key={idx}>
 									{listData.submenu ? (
@@ -110,6 +111,7 @@ export const Header = () => {
 							))}
 						</div>
 					</div>
+					<SearchLayer />
 					<div className="hidden text-xl xl:flex">
 						<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
