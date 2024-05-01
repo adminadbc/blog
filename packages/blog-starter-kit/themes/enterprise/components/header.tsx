@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
-import SearchLayer from "./searchBox";
+import SearchLayer from './searchBox';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -64,20 +64,20 @@ export const Header = () => {
 		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800  dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
-				<div className="mx-auto w-full flex justify-around pb-4 align-middle md:justify-between md:pb-0 ">
+				<div className="mx-auto flex w-10/12 items-center justify-around pb-4 align-middle md:justify-between md:pb-0 ">
 					<div className="pl-5 md:pl-10">
 						<Link href="https://www.abcfoundationconnect.com/">
 							<Image
 								src="/images/newlogo.png"
 								width={300}
-								height={100 / 3.78} // Calculated height based on the aspect ratio
+								height={100 / 3.78}
 								alt="ABC Foundation Logo"
 								className="w-52 md:w-fit "
 							/>
 						</Link>
 					</div>
 					<div className="hidden text-xl xl:flex">
-						<div className="mt-6 flex space-x-6">
+						<div className="flex space-x-6">
 							{links.map((listData, idx) => (
 								<div key={idx}>
 									{listData.submenu ? (
@@ -116,7 +116,7 @@ export const Header = () => {
 						<Link
 							href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
 							target="_blank"
-							className="bg-abcf mr-10 mt-4 h-fit rounded-lg 
+							className="bg-abcf mr-10 h-fit rounded-lg 
                     px-6 py-3
                         text-sm font-semibold uppercase text-black "
 						>
