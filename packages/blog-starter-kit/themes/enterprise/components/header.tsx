@@ -72,7 +72,7 @@ export const Header = () => {
 								width={300}
 								height={100 / 3.78}
 								alt="ABC Foundation Logo"
-								className="w-52 md:w-fit "
+								className="w-52"
 							/>
 						</Link>
 					</div>
