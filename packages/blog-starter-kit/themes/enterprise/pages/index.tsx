@@ -154,7 +154,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<div className="bg-brand2 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
 								<h2 className="dark:text-primary-500 mb-5 text-center text-lg font-semibold text-white">
-									Subscribe to our newsletter for updates.
+								Subscribe to our Newsletter for updates to stay informed
 								</h2>
 								<SubscribeForm />
 							</div>

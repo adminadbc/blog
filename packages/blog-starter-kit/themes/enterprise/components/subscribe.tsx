@@ -22,7 +22,7 @@ export const Subscribe = () => {
 						sideOffset={5}
 					>
 						<h3 className="text-primary-600 mb-2 text-center text-base font-semibold">
-							Subscribe to our newsletter for updates.
+						Subscribe to our Newsletter for updates to stay informed
 						</h3>
 						<SubscribeForm />
 					</Popover.Content>
