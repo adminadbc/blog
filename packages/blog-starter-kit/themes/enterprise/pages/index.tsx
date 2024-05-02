@@ -85,9 +85,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 		<AppProvider publication={publication}>
 			<Layout>
 				<Head>
-					<title>
-						{publication.displayTitle || publication.title || 'Hashnode Blog Starter Kit'}
-					</title>
+					<title>{publication.displayTitle || publication.title || 'ABC Foundation'}</title>
 					<meta
 						name="description"
 						content={
@@ -97,7 +95,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					<meta property="twitter:card" content="summary_large_image" />
 					<meta
 						property="twitter:title"
-						content={publication.displayTitle || publication.title || 'Hashnode Blog Starter Kit'}
+						content={publication.displayTitle || publication.title || 'ABC Foundation'}
 					/>
 					<meta
 						property="twitter:description"
