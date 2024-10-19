@@ -7,38 +7,40 @@ import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import SearchLayer from './searchBox';
 
 const links = [
-	{ name: 'Home', href: 'https://www.abcfoundationconnect.com/main' },
+	{ name: "Home", href: "/" },
 	{
-		name: 'About Us',
-		href: 'https://www.abcfoundationconnect.com/main/about',
-		submenu: false,
-		submenuItems: [{ name: 'Founder', href: 'https://www.abcfoundationconnect.com/main/founder' }],
-	},
-	{
-		name: 'Resources',
-		href: 'https://www.abcfoundationconnect.com/main/resources',
+		name: "About Us",
+		href: "/about",
 		submenu: true,
 		submenuItems: [
-			{ name: 'Articles', href: 'https://blog.abcfoundationconnect.com/' },
-			{ name: 'Education', href: 'https://www.abcfoundationconnect.com/main/resources/education' },
+			{ name: "Team", href: "/about/team" },
+			{ name: "Articles", href: "https://blog.abcfoundationconnect.com/" },
 		],
 	},
 	{
-		name: 'Initiatives',
-		href: 'https://www.abcfoundationconnect.com/main/initiatives',
+		name: "Advocacy",
+		href: "/advocacy",
+		submenu: true,
+		submenuItems: [
+			{ name: "LAS", href: "/advocacy/legal-advocacy-and-support" },
+			{ name: "Engage", href: "/advocacy/engage" },
+			{ name: "Safe Spaces", href: "/advocacy/safe-spaces" },
+			{ name: "United Journeys", href: "/advocacy/united-journeys" },
+		],
+	},
+	{
+		name: "Education",
+		href: "/education",
 		submenu: true,
 		submenuItems: [
 			{
-				name: 'The Law Spot',
-				href: 'https://www.abcfoundationconnect.com/main/initiatives/legal-connect',
+				name: "LAP",
+				href: "/education/legal-awareness-program",
 			},
-			{
-				name: 'Changemakers',
-				href: 'https://www.abcfoundationconnect.com/main/initiatives/changemakers',
-			},
+			{ name: "Changemakers", href: "/education/changemakers" },
 		],
 	},
-	{ name: 'Contact Us', href: 'https://www.abcfoundationconnect.com/main/contacts' },
+	{ name: "Contact Us", href: "/contacts" },
 ];
 
 interface DropMenuProps {
@@ -53,21 +55,20 @@ const DropMenu: React.FC<DropMenuProps & { isOpen: boolean; toggleDropdown: () =
 	toggleDropdown,
 }) => {
 	return (
-		<div
-			className="relative flex flex-col text-left"
+		<div 
+			className="relative"
 			onMouseEnter={toggleDropdown}
 			onMouseLeave={toggleDropdown}
 		>
 			<div
-				className="inline-flex w-full justify-start bg-white py-2 font-normal"
+				className="inline-flex w-full justify-start bg-white py-2 font-normal cursor-pointer"
 				aria-haspopup="true"
-				{...(isOpen && { 'aria-expanded': 'true' })}
 			>
 				<h3>{title}</h3>
 			</div>
 			<div
-				className={`absolute left-0 top-full mt-2 w-fit divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ${
-					isOpen ? '' : 'hidden'
+				className={`absolute left-0 top-full mt-2 w-48 origin-top transform divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-out z-50 ${
+					isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
 				}`}
 				role="menu"
 				aria-orientation="vertical"
@@ -189,10 +190,10 @@ export const Header = () => {
 							<li key={idx}>
 								{listData.submenu ? (
 									<>
-										<div onClick={() => listData.name === 'Resources' ? setSlideDownX(!slideDownX) : setSlideDown(!slideDown)}>
+										<div onClick={() => listData.name === 'About Us' ? setSlideDownX(!slideDownX) : setSlideDown(!slideDown)}>
 											<h6>{listData.name}</h6>
 										</div>
-										{((listData.name === 'Resources' && slideDownX) || (listData.name === 'Initiatives' && slideDown)) && (
+										{((listData.name === 'About Us' && slideDownX) || ((listData.name === 'Advocacy' || listData.name === 'Education') && slideDown)) && (
 											<div className="flex w-fit flex-col space-y-4 rounded-lg bg-white p-3 text-sm shadow-lg">
 												{listData.submenuItems.map((item, index) => (
 													<Link key={index} href={item.href}>
