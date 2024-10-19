@@ -2,16 +2,9 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import SearchLayer from './searchBox';
-
-function hasUrl(
-	navbarItem: PublicationNavbarItem,
-): navbarItem is PublicationNavbarItem & { url: string } {
-	return !!navbarItem.url && navbarItem.url.length > 0;
-}
 
 const links = [
 	{ name: 'Home', href: 'https://www.abcfoundationconnect.com/main' },
@@ -48,20 +41,71 @@ const links = [
 	{ name: 'Contact Us', href: 'https://www.abcfoundationconnect.com/main/contacts' },
 ];
 
+interface DropMenuProps {
+	title: string;
+	items: { name: string; href: string }[];
+}
+
+const DropMenu: React.FC<DropMenuProps & { isOpen: boolean; toggleDropdown: () => void }> = ({
+	title,
+	items,
+	isOpen,
+	toggleDropdown,
+}) => {
+	return (
+		<div
+			className="relative flex flex-col text-left"
+			onMouseEnter={toggleDropdown}
+			onMouseLeave={toggleDropdown}
+		>
+			<div
+				className="inline-flex w-full justify-start bg-white py-2 font-normal"
+				aria-haspopup="true"
+				{...(isOpen && { 'aria-expanded': 'true' })}
+			>
+				<h3>{title}</h3>
+			</div>
+			<div
+				className={`absolute left-0 top-full mt-2 w-fit divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ${
+					isOpen ? '' : 'hidden'
+				}`}
+				role="menu"
+				aria-orientation="vertical"
+				aria-labelledby="options-menu"
+			>
+				<div className="py-1" role="none">
+					{items.map((item, index) => (
+						<Link
+							key={index}
+							href={item.href}
+							className="hover:text-abcf block px-4 py-2 text-base text-gray-700"
+							role="menuitem"
+						>
+							<h6>{item.name}</h6>
+						</Link>
+					))}
+				</div>
+			</div>
+		</div>
+	);
+};
+
 export const Header = () => {
 	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>();
-	const [slideDown, setSlideDown] = useState<boolean>(false);
+	const [openDropdown, setOpenDropdown] = useState<number | null>(null);
 	const [slideDownX, setSlideDownX] = useState<boolean>(false);
+	const [slideDown, setSlideDown] = useState<boolean>(false);
+
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
 	};
 
-	const handleSubmenuItemClicked = (url: string) => {
-		window.location.href = url;
+	const toggleDropdown = (dropdownId: number) => {
+		setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
 	};
 
 	return (
-		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800  dark:bg-neutral-900">
+		<header className="mx-auto border-b bg-white py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<div>
 				{/* Upper section */}
 				<div className="mx-auto flex items-center justify-around pb-4 align-middle sm:w-11/12 md:justify-between md:pb-0 lg:w-10/12 ">
@@ -77,34 +121,19 @@ export const Header = () => {
 						</Link>
 					</div>
 					<div className="hidden text-xl xl:flex">
-						<div className="flex space-x-6">
+						<div className="flex items-center space-x-6">
 							{links.map((listData, idx) => (
-								<div key={idx}>
+								<div key={idx} className="flex items-center">
 									{listData.submenu ? (
-										<DropdownMenu.Root>
-											<DropdownMenu.Trigger asChild>
-												<div className="group relative">
-													<h3>{listData.name}</h3>
-													<div
-														className="absolute z-[999] hidden w-[200px] flex-col space-y-3 rounded-lg 
-                                border bg-white p-3 shadow-lg group-hover:flex"
-													>
-														{listData.submenuItems.map((data, idx) => (
-															<h6
-																className="hover:text-abcf text-sm"
-																key={idx}
-																onClick={() => handleSubmenuItemClicked(data.href)}
-															>
-																{data.name}
-															</h6>
-														))}
-													</div>
-												</div>
-											</DropdownMenu.Trigger>
-										</DropdownMenu.Root>
+										<DropMenu
+											title={listData.name}
+											items={listData.submenuItems}
+											isOpen={openDropdown === idx}
+											toggleDropdown={() => toggleDropdown(idx)}
+										/>
 									) : (
-										<Link href={listData.href} key={idx}>
-											<h3> {listData.name}</h3>
+										<Link href={listData.href}>
+											<h3>{listData.name}</h3>
 										</Link>
 									)}
 								</div>
@@ -156,52 +185,30 @@ export const Header = () => {
 					}`}
 				>
 					<ul className="mb-4 flex flex-col space-y-4 pl-8 md:pl-40">
-						<li>
-							<Link href="https://www.abcfoundationconnect.com/main">
-								<h6>Home</h6>
-							</Link>
-						</li>
-						<li>
-							<Link href="https://www.abcfoundationconnect.com/main/about">
-								<h6>About Us</h6>
-							</Link>
-						</li>
-						<li onClick={() => setSlideDownX(!slideDownX)}>
-							<Link href="">
-								<h6>Resources</h6>
-							</Link>
-							{slideDownX && (
-								<div className="flex w-fit flex-col space-y-4 rounded-lg bg-white p-3 text-sm shadow-lg">
-									<Link href="https://blog.abcfoundationconnect.com">
-										<h6>Articles</h6>
+						{links.map((listData, idx) => (
+							<li key={idx}>
+								{listData.submenu ? (
+									<>
+										<div onClick={() => listData.name === 'Resources' ? setSlideDownX(!slideDownX) : setSlideDown(!slideDown)}>
+											<h6>{listData.name}</h6>
+										</div>
+										{((listData.name === 'Resources' && slideDownX) || (listData.name === 'Initiatives' && slideDown)) && (
+											<div className="flex w-fit flex-col space-y-4 rounded-lg bg-white p-3 text-sm shadow-lg">
+												{listData.submenuItems.map((item, index) => (
+													<Link key={index} href={item.href}>
+														<h6>{item.name}</h6>
+													</Link>
+												))}
+											</div>
+										)}
+									</>
+								) : (
+									<Link href={listData.href}>
+										<h6>{listData.name}</h6>
 									</Link>
-									<Link href="https://www.abcfoundationconnect.com/main/resources/education">
-										<h6>Education</h6>
-									</Link>
-								</div>
-							)}
-						</li>
-						<li onClick={() => setSlideDown(!slideDown)}>
-							<Link href="">
-								<h6>Initiatives</h6>
-							</Link>
-							{slideDown && (
-								<div className="flex w-fit flex-col space-y-4 rounded-lg  bg-white p-3 text-sm shadow-lg">
-									<Link href="https://www.abcfoundationconnect.com/main/initiatives/legal-connect">
-										<h6>Legal Communities Connects</h6>
-									</Link>
-									<Link href="https://www.abcfoundationconnect.com/main/initiatives/changemakers">
-										<h6>Changemakers</h6>
-									</Link>
-								</div>
-							)}
-						</li>
-
-						<li>
-							<Link href="https://www.abcfoundationconnect.com/main">
-								<h6>Contact Us</h6>
-							</Link>
-						</li>
+								)}
+							</li>
+						))}
 					</ul>
 					<Link
 						href="https://donate.abcfoundationconnect.com/b/8wMaEK1aw8OGdj2144"
