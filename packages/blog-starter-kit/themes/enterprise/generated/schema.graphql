@@ -1311,6 +1311,13 @@ type DocsCustomPageConnection implements PageConnection {
   totalDocuments: Int!
 }
 
+enum DocsGitHubActivityDeploymentType {
+  """The deployment is a preview deployment."""
+  PREVIEW
+  """The deployment is a production deployment."""
+  PRODUCTION
+}
+
 type DocsProjectInvitedMembers {
   email: String!
   role: DocumentationMemberRole!
@@ -1383,11 +1390,20 @@ type DocumentationGuide implements IGuide {
   OG meta-data of the page. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
+  """Page of any version of this guide."""
   page(id: ID, path: String): DocumentationPage
   provider: GuideProvider!
+  """Only published page of any version of this guide."""
   publishedPage(id: ID, path: String): DocumentationPage
   """Only published sidebar items of the default version of this guide."""
   publishedSidebarItems: [DocumentationSidebarItem!]!
+  """
+  Only published page of any version of this guide. The path may include the version slug.
+  
+  Takes redirects into account and may return the page that the requested page redirects to.
+  
+  If the path is only a version slug, it will redirect to the first page of that version.
+  """
   redirectedPublishedPage(id: ID, path: String): DocumentationPage
   """
   SEO information of the page. Contains title and description used in meta tags.
@@ -1522,7 +1538,11 @@ type DocumentationPage {
   status: DocumentationSidebarItemStatus!
   title: String!
   updatedAt: DateTime
-  """URL of the published page."""
+  """
+  URL of the published page.
+  
+  Returns `null` if the page is not published.
+  """
   url: String
   visibility: DocumentationSidebarItemVisibility!
 }
@@ -1698,6 +1718,10 @@ type DocumentationProjectFeatures {
   GitHub sync feature for the docs project which enables syncing the docs project with a GitHub repository.
   """
   ghSync: GitHubSyncFeature!
+  """
+  Versioning feature for the docs project which enables creating different versions of docs guides.
+  """
+  versioning: VersioningFeature!
 }
 
 type DocumentationProjectGetStarted {
@@ -1914,7 +1938,11 @@ type DocumentationSidebarItemPage implements IDocumentationNestableSidebarItem &
   path: String!
   status: DocumentationSidebarItemStatus!
   updatedAt: DateTime
-  """URL of the published page."""
+  """
+  URL of the published page.
+  
+  Returns `null` if the page is not published.
+  """
   url: String
   visibility: DocumentationSidebarItemVisibility!
 }
@@ -2341,6 +2369,8 @@ type GitHubActivityLog implements Node {
   branchName: String!
   """The date the log was created."""
   createdAt: DateTime!
+  """The deployment type related to the log."""
+  deploymentType: DocsGitHubActivityDeploymentType!
   """The commit ID."""
   gitCommitId: String!
   """The commit message."""
@@ -6378,6 +6408,14 @@ type VerifyDocumentationProjectCustomDomainPayload {
   Note, that the verification can also fail.
   """
   project: DocumentationProject
+}
+
+"""
+Contains the flag indicating if the Versioning feature is enabled or not.
+"""
+type VersioningFeature implements Feature {
+  """A flag indicating if the Versioning feature is enabled or not."""
+  isEnabled: Boolean!
 }
 
 """
