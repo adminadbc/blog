@@ -13,7 +13,7 @@ const links = [
 		href: "/about",
 		submenu: true,
 		submenuItems: [
-			{ name: "Team", href: "/about/team" },
+			{ name: "Team", href: "https://www.abcfoundationconnect.com/about/team" },
 			{ name: "Articles", href: "https://blog.abcfoundationconnect.com/" },
 		],
 	},
@@ -22,10 +22,10 @@ const links = [
 		href: "/advocacy",
 		submenu: true,
 		submenuItems: [
-			{ name: "LAS", href: "/advocacy/legal-advocacy-and-support" },
-			{ name: "Engage", href: "/advocacy/engage" },
-			{ name: "Safe Spaces", href: "/advocacy/safe-spaces" },
-			{ name: "United Journeys", href: "/advocacy/united-journeys" },
+			{ name: "LAS", href: "https://www.abcfoundationconnect.com/advocacy/legal-advocacy-and-support" },
+			{ name: "Engage", href: "https://www.abcfoundationconnect.com/advocacy/engage" },
+			{ name: "Safe Spaces", href: "https://www.abcfoundationconnect.com/advocacy/safe-spaces" },
+			{ name: "United Journeys", href: "https://www.abcfoundationconnect.com/advocacy/united-journeys" },
 		],
 	},
 	{
@@ -35,12 +35,12 @@ const links = [
 		submenuItems: [
 			{
 				name: "LAP",
-				href: "/education/legal-awareness-program",
+				href: "https://www.abcfoundationconnect.com/education/legal-awareness-program",
 			},
-			{ name: "Changemakers", href: "/education/changemakers" },
+			{ name: "Changemakers", href: "https://www.abcfoundationconnect.com/education/changemakers" },
 		],
 	},
-	{ name: "Contact Us", href: "/contacts" },
+	{ name: "Contact Us", href: "https://www.abcfoundationconnect.com/contacts" },
 ];
 
 interface DropMenuProps {
