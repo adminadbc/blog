@@ -76,6 +76,16 @@ type AddCommentPayload {
   comment: Comment
 }
 
+input AddCustomMdxComponentInput {
+  code: String!
+  componentId: String!
+  projectId: ID!
+}
+
+type AddCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 input AddDocumentationProjectCustomDomainInput {
   domain: String!
   projectId: ID!
@@ -1204,6 +1214,15 @@ enum DefaultDocsTheme {
   LIGHT
 }
 
+input DeleteCustomMdxComponentInput {
+  componentId: String!
+  projectId: ID!
+}
+
+type DeleteCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 """Input to delete a role based invite."""
 input DeleteRoleBasedInviteInput {
   """The ID of the role based invite."""
@@ -1426,7 +1445,6 @@ type DocumentationGuide implements IGuide {
 union DocumentationGuideItem = DocumentationApiReference | DocumentationGuide
 
 enum DocumentationGuideItemStatus {
-  DELETED
   PUBLISHED
   UNPUBLISHED
 }
@@ -1466,6 +1484,8 @@ type DocumentationNavbarColumn implements Node {
   items: [DocumentationNavbarItem!]!
   """The label of the column."""
   label: String!
+  """The logo of the column."""
+  logo: URL
   """The date the column was last updated."""
   updatedAt: DateTime
 }
@@ -1691,6 +1711,17 @@ input DocumentationProjectAppearanceInput {
   primaryColor: String
 }
 
+type DocumentationProjectCustomComponent implements Node {
+  """The code of the custom component."""
+  code: String!
+  """componentId, can be embedded as %%[componentId] in the docs"""
+  componentId: String!
+  """The unique identifier of the custom component"""
+  id: ID!
+  """The transpiled code of the custom component."""
+  transpiledCode: String!
+}
+
 type DocumentationProjectCustomDomain {
   domain: String!
   status: CustomDomainStatus!
@@ -1745,8 +1776,12 @@ type DocumentationProjectIntegrations {
   hotjarSiteID: String
   """Intercom ID for integration with Intercom"""
   intercomID: String
+  """Koala Public Key for integration with Koala."""
+  koalaPublicKey: String
   """The meta tags associated with the documentation project."""
   metaTags: String
+  """MS Clarity ID for integration with Microsoft Clarity."""
+  msClarityID: String
 }
 
 input DocumentationProjectIntegrationsInput {
@@ -1755,7 +1790,9 @@ input DocumentationProjectIntegrationsInput {
   gaTrackingID: String
   hotjarSiteID: String
   intercomID: String
+  koalaPublicKey: String
   metaTags: String
+  msClarityID: String
 }
 
 """Contains the pending invite information."""
@@ -1771,6 +1808,8 @@ type DocumentationProjectInvite implements Node {
 }
 
 type DocumentationProjectLinks {
+  """Bluesky URL of the documentation project."""
+  bluesky: String
   """Daily.dev URL of the documentation project."""
   dailydev: String
   """GitHub URL of the documentation project."""
@@ -1794,6 +1833,7 @@ type DocumentationProjectLinks {
 }
 
 input DocumentationProjectLinksInput {
+  bluesky: String
   dailydev: String
   github: String
   githubRepository: String
@@ -2371,6 +2411,12 @@ type GitHubActivityLog implements Node {
   createdAt: DateTime!
   """The deployment type related to the log."""
   deploymentType: DocsGitHubActivityDeploymentType!
+  """
+  The deployment URL. For preview activities, the deployment URL is different for every commit. For production deployments, the deploymentUrl points to the main project subdomain.
+  """
+  deploymentUrl: String!
+  """The errors occurred during the sync."""
+  errors: [GitHubSyncError!]!
   """The commit ID."""
   gitCommitId: String!
   """The commit message."""
@@ -2381,6 +2427,26 @@ type GitHubActivityLog implements Node {
   id: ID!
   """The status of the sync."""
   status: GitHubSyncStatus!
+}
+
+type GitHubSyncError {
+  """The error code denoting the reason of failure for GitHub sync."""
+  code: GitHubSyncErrorCode!
+  """List of error messages"""
+  messages: [String!]!
+}
+
+enum GitHubSyncErrorCode {
+  """Indicates that the project has configuration errors."""
+  CONFIGURATION_ERROR
+  """Indicates that the project has invalid content."""
+  CONTENT_ERROR
+  """Indicates that the project has duplicate paths."""
+  DUPLICATE_PATHS
+  """Indicates that the project has duplicate slugs."""
+  DUPLICATE_SLUGS
+  """Indicates that the project has missing files."""
+  MISSING_FILES
 }
 
 """
@@ -3076,6 +3142,7 @@ type Mutation {
   acceptRoleBasedInvite(input: AcceptRoleBasedInviteInput!): AcceptRoleBasedInvitePayload!
   """Adds a comment to a post."""
   addComment(input: AddCommentInput!): AddCommentPayload!
+  addCustomMdxComponent(input: AddCustomMdxComponentInput!): AddCustomMdxComponentPayload!
   addDocumentationProjectCustomDomain(input: AddDocumentationProjectCustomDomainInput!): AddDocumentationProjectCustomDomainPayload!
   """Adds a post to a series."""
   addPostToSeries(input: AddPostToSeriesInput!): AddPostToSeriesPayload!
@@ -3108,6 +3175,7 @@ type Mutation {
   """Creates a new series."""
   createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteCustomMdxComponent(input: DeleteCustomMdxComponentInput!): DeleteCustomMdxComponentPayload!
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
@@ -3228,6 +3296,7 @@ type Mutation {
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
   """Updates a comment on a post."""
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
+  updateCustomMdxComponent(input: UpdateCustomMdxComponentInput!): UpdateCustomMdxComponentPayload!
   updateDocumentationAppearance(input: UpdateDocumentationAppearanceInput!): UpdateDocumentationAppearancePayload!
   updateDocumentationGeneralSettings(input: UpdateDocumentationGeneralSettingsInput!): UpdateDocumentationGeneralSettingsPayload!
   updateDocumentationGuide(input: UpdateDocumentationGuideInput!): UpdateDocumentationGuidePayload!
@@ -3269,7 +3338,7 @@ type MyUser implements IUser & Node {
   """
   A list of beta features that the user has access to. Only available to the authenticated user.
   """
-  betaFeatures: [BetaFeature!]!
+  betaFeatures: [BetaFeature!]! @deprecated(reason: "Beta features are no longer supported. Will be removed after 15/12/2024")
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
@@ -4237,6 +4306,14 @@ type Publication implements Node {
   isTeam: Boolean!
   """Links to the publication's social media profiles."""
   links: PublicationLinks
+  members(
+    """Filters to be applied to the member list."""
+    filter: PublicationMemberConnectionFilter
+    """The page number that should be returned."""
+    page: Int!
+    """The number of members to return on a single page."""
+    pageSize: Int!
+  ): PublicationMemberConnection!
   """The meta tags associated with the publication."""
   metaTags: String
   """Information about the publication's Open Graph metadata i.e. image."""
@@ -4266,6 +4343,13 @@ type Publication implements Node {
   The publication preferences around layout, theme and other personalisations.
   """
   preferences: Preferences!
+  """Returns a paginated list of public members of the publication."""
+  publicMembers(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of members to return on a single page."""
+    pageSize: Int!
+  ): PublicationMemberConnection!
   """Publications that are recommended by this publication."""
   recommendedPublications: [UserRecommendedPublicationEdge!]!
   """Publications that are recommending this publication."""
@@ -4400,10 +4484,14 @@ type PublicationIntegrations {
   gaTrackingID: String
   """Hotjar Site ID for integration with Hotjar."""
   hotjarSiteID: String
+  """Koala Public Key for integration with Koala."""
+  koalaPublicKey: String
   """Matomo Site ID for integration with Matomo Analytics."""
   matomoSiteID: String
   """Matomo URL for integration with Matomo Analytics."""
   matomoURL: String
+  """MS Clarity ID for integration with Microsoft Clarity."""
+  msClarityID: String
   """
   A flag indicating if the custom domain is enabled for integration with Plausible Analytics.
   """
@@ -4455,6 +4543,8 @@ enum PublicationLayout {
 
 """Contains the publication's social media links."""
 type PublicationLinks {
+  """Bluesky URL of the publication."""
+  bluesky: String
   """Daily.dev URL of the publication."""
   dailydev: String
   """Facebook URL of the publication."""
@@ -4490,6 +4580,23 @@ type PublicationMember implements Node {
   role: UserPublicationRole!
   """The user who is a member of the publication."""
   user: User
+}
+
+type PublicationMemberConnection implements PageConnection {
+  """A list of members"""
+  nodes: [PublicationMember!]!
+  """Information for page based pagination in Member connection."""
+  pageInfo: OffsetPageInfo!
+  """The total number of documents in the connection."""
+  totalDocuments: Int!
+}
+
+"""The filter for the publication member connection."""
+input PublicationMemberConnectionFilter {
+  """
+  Search filter can be used to filter members by their username or email.
+  """
+  search: String
 }
 
 """Publication member privacy state on members page"""
@@ -4553,6 +4660,10 @@ input PublicationPostConnectionFilter {
   deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagSlugs: [String!]
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTags: [ID!]
   """
   Filtering by tag slugs and tag IDs will return posts that match either of the filters.
   
@@ -5264,9 +5375,6 @@ Enum of all the scopes that can be used with the @requireAuth directive.
 enum Scope {
   acknowledge_email_import
   active_pro_user
-  assign_pro_publications
-  change_pro_subscription
-  create_pro
   delete_draft
   docs_admin_or_owner
   docs_owner
@@ -5326,6 +5434,8 @@ input SearchPostsOfPublicationFilter {
   publicationId: ObjectId!
   """The query to be searched in post."""
   query: String
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagsIds: [ID!]
   """An array of tag Ids to filter the posts."""
   tagIds: [ID!]
   """Filter based on time range."""
@@ -5431,6 +5541,8 @@ type SetDocumentationSidebarItemVisibilityPayload {
 
 """Available social media links."""
 type SocialMediaLinks {
+  """The user's Bluesky profile."""
+  bluesky: String
   """The user's Facebook profile."""
   facebook: String
   """The user's GitHub profile."""
@@ -5783,6 +5895,16 @@ type UpdateCommentPayload {
   comment: Comment
 }
 
+input UpdateCustomMdxComponentInput {
+  code: String!
+  componentId: String!
+  projectId: ID!
+}
+
+type UpdateCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 input UpdateDocumentationAppearanceInput {
   appearance: DocumentationProjectAppearanceInput!
   projectId: ID!
@@ -6102,8 +6224,6 @@ type User implements IUser & Node {
   followsBack: Boolean!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
-  """Whether or not this is a pro user."""
-  isPro: Boolean!
   """The location of the user."""
   location: String
   """The name of the user."""
@@ -6319,8 +6439,6 @@ type UserPublicationsConnection implements Connection {
 
 """Filter to apply to the publications."""
 input UserPublicationsConnectionFilter {
-  """Only return pro publications."""
-  isPro: Boolean
   """
   Only include publication in which the user has one of the provided roles.
   """

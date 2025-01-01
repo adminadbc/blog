@@ -86,6 +86,17 @@ export type AddCommentPayload = {
   comment?: Maybe<Comment>;
 };
 
+export type AddCustomMdxComponentInput = {
+  code: Scalars['String']['input'];
+  componentId: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type AddCustomMdxComponentPayload = {
+  __typename?: 'AddCustomMdxComponentPayload';
+  project: DocumentationProject;
+};
+
 export type AddDocumentationProjectCustomDomainInput = {
   domain: Scalars['String']['input'];
   projectId: Scalars['ID']['input'];
@@ -1210,6 +1221,16 @@ export enum DefaultDocsTheme {
   Light = 'LIGHT'
 }
 
+export type DeleteCustomMdxComponentInput = {
+  componentId: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type DeleteCustomMdxComponentPayload = {
+  __typename?: 'DeleteCustomMdxComponentPayload';
+  project: DocumentationProject;
+};
+
 /** Input to delete a role based invite. */
 export type DeleteRoleBasedInviteInput = {
   /** The ID of the role based invite. */
@@ -1438,7 +1459,6 @@ export type DocumentationGuideRedirectedPublishedPageArgs = {
 export type DocumentationGuideItem = DocumentationApiReference | DocumentationGuide;
 
 export enum DocumentationGuideItemStatus {
-  Deleted = 'DELETED',
   Published = 'PUBLISHED',
   Unpublished = 'UNPUBLISHED'
 }
@@ -1478,6 +1498,8 @@ export type DocumentationNavbarColumn = Node & {
   items: Array<DocumentationNavbarItem>;
   /** The label of the column. */
   label: Scalars['String']['output'];
+  /** The logo of the column. */
+  logo?: Maybe<Scalars['URL']['output']>;
   /** The date the column was last updated. */
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -1729,6 +1751,18 @@ export type DocumentationProjectAppearanceInput = {
   primaryColor?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type DocumentationProjectCustomComponent = Node & {
+  __typename?: 'DocumentationProjectCustomComponent';
+  /** The code of the custom component. */
+  code: Scalars['String']['output'];
+  /** componentId, can be embedded as %%[componentId] in the docs */
+  componentId: Scalars['String']['output'];
+  /** The unique identifier of the custom component */
+  id: Scalars['ID']['output'];
+  /** The transpiled code of the custom component. */
+  transpiledCode: Scalars['String']['output'];
+};
+
 export type DocumentationProjectCustomDomain = {
   __typename?: 'DocumentationProjectCustomDomain';
   domain: Scalars['String']['output'];
@@ -1783,8 +1817,12 @@ export type DocumentationProjectIntegrations = {
   hotjarSiteID?: Maybe<Scalars['String']['output']>;
   /** Intercom ID for integration with Intercom */
   intercomID?: Maybe<Scalars['String']['output']>;
+  /** Koala Public Key for integration with Koala. */
+  koalaPublicKey?: Maybe<Scalars['String']['output']>;
   /** The meta tags associated with the documentation project. */
   metaTags?: Maybe<Scalars['String']['output']>;
+  /** MS Clarity ID for integration with Microsoft Clarity. */
+  msClarityID?: Maybe<Scalars['String']['output']>;
 };
 
 export type DocumentationProjectIntegrationsInput = {
@@ -1793,7 +1831,9 @@ export type DocumentationProjectIntegrationsInput = {
   gaTrackingID?: InputMaybe<Scalars['String']['input']>;
   hotjarSiteID?: InputMaybe<Scalars['String']['input']>;
   intercomID?: InputMaybe<Scalars['String']['input']>;
+  koalaPublicKey?: InputMaybe<Scalars['String']['input']>;
   metaTags?: InputMaybe<Scalars['String']['input']>;
+  msClarityID?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Contains the pending invite information. */
@@ -1809,6 +1849,8 @@ export type DocumentationProjectInvite = Node & {
 
 export type DocumentationProjectLinks = {
   __typename?: 'DocumentationProjectLinks';
+  /** Bluesky URL of the documentation project. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** Daily.dev URL of the documentation project. */
   dailydev?: Maybe<Scalars['String']['output']>;
   /** GitHub URL of the documentation project. */
@@ -1832,6 +1874,7 @@ export type DocumentationProjectLinks = {
 };
 
 export type DocumentationProjectLinksInput = {
+  bluesky?: InputMaybe<Scalars['String']['input']>;
   dailydev?: InputMaybe<Scalars['String']['input']>;
   github?: InputMaybe<Scalars['String']['input']>;
   githubRepository?: InputMaybe<Scalars['String']['input']>;
@@ -2402,6 +2445,10 @@ export type GitHubActivityLog = Node & {
   createdAt: Scalars['DateTime']['output'];
   /** The deployment type related to the log. */
   deploymentType: DocsGitHubActivityDeploymentType;
+  /** The deployment URL. For preview activities, the deployment URL is different for every commit. For production deployments, the deploymentUrl points to the main project subdomain. */
+  deploymentUrl: Scalars['String']['output'];
+  /** The errors occurred during the sync. */
+  errors: Array<GitHubSyncError>;
   /** The commit ID. */
   gitCommitId: Scalars['String']['output'];
   /** The commit message. */
@@ -2413,6 +2460,27 @@ export type GitHubActivityLog = Node & {
   /** The status of the sync. */
   status: GitHubSyncStatus;
 };
+
+export type GitHubSyncError = {
+  __typename?: 'GitHubSyncError';
+  /** The error code denoting the reason of failure for GitHub sync. */
+  code: GitHubSyncErrorCode;
+  /** List of error messages */
+  messages: Array<Scalars['String']['output']>;
+};
+
+export enum GitHubSyncErrorCode {
+  /** Indicates that the project has configuration errors. */
+  ConfigurationError = 'CONFIGURATION_ERROR',
+  /** Indicates that the project has invalid content. */
+  ContentError = 'CONTENT_ERROR',
+  /** Indicates that the project has duplicate paths. */
+  DuplicatePaths = 'DUPLICATE_PATHS',
+  /** Indicates that the project has duplicate slugs. */
+  DuplicateSlugs = 'DUPLICATE_SLUGS',
+  /** Indicates that the project has missing files. */
+  MissingFiles = 'MISSING_FILES'
+}
 
 /** Contains the flag indicating if the GitHub sync feature is enabled or not. */
 export type GitHubSyncFeature = Feature & {
@@ -3099,6 +3167,7 @@ export type Mutation = {
   acceptRoleBasedInvite: AcceptRoleBasedInvitePayload;
   /** Adds a comment to a post. */
   addComment: AddCommentPayload;
+  addCustomMdxComponent: AddCustomMdxComponentPayload;
   addDocumentationProjectCustomDomain: AddDocumentationProjectCustomDomainPayload;
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload;
@@ -3126,6 +3195,7 @@ export type Mutation = {
   /** Creates a new series. */
   createSeries: CreateSeriesPayload;
   createWebhook: CreateWebhookPayload;
+  deleteCustomMdxComponent: DeleteCustomMdxComponentPayload;
   /** Deletes a role based invite. */
   deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
@@ -3234,6 +3304,7 @@ export type Mutation = {
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
   /** Updates a comment on a post. */
   updateComment: UpdateCommentPayload;
+  updateCustomMdxComponent: UpdateCustomMdxComponentPayload;
   updateDocumentationAppearance: UpdateDocumentationAppearancePayload;
   updateDocumentationGeneralSettings: UpdateDocumentationGeneralSettingsPayload;
   updateDocumentationGuide: UpdateDocumentationGuidePayload;
@@ -3275,6 +3346,11 @@ export type MutationAcceptRoleBasedInviteArgs = {
 
 export type MutationAddCommentArgs = {
   input: AddCommentInput;
+};
+
+
+export type MutationAddCustomMdxComponentArgs = {
+  input: AddCustomMdxComponentInput;
 };
 
 
@@ -3360,6 +3436,11 @@ export type MutationCreateSeriesArgs = {
 
 export type MutationCreateWebhookArgs = {
   input: CreateWebhookInput;
+};
+
+
+export type MutationDeleteCustomMdxComponentArgs = {
+  input: DeleteCustomMdxComponentInput;
 };
 
 
@@ -3654,6 +3735,11 @@ export type MutationUpdateCommentArgs = {
 };
 
 
+export type MutationUpdateCustomMdxComponentArgs = {
+  input: UpdateCustomMdxComponentInput;
+};
+
+
 export type MutationUpdateDocumentationAppearanceArgs = {
   input: UpdateDocumentationAppearanceInput;
 };
@@ -3748,7 +3834,10 @@ export type MyUser = IUser & Node & {
   availableFor?: Maybe<Scalars['String']['output']>;
   /** Returns a list of badges that the user has earned. Shown on blogs /badges page. Example - https://iamshadmirza.com/badges */
   badges: Array<Badge>;
-  /** A list of beta features that the user has access to. Only available to the authenticated user. */
+  /**
+   * A list of beta features that the user has access to. Only available to the authenticated user.
+   * @deprecated Beta features are no longer supported. Will be removed after 15/12/2024
+   */
   betaFeatures: Array<BetaFeature>;
   /** The bio of the user. Visible in about me section of the user's profile. */
   bio?: Maybe<Content>;
@@ -4669,6 +4758,7 @@ export type Publication = Node & {
   isTeam: Scalars['Boolean']['output'];
   /** Links to the publication's social media profiles. */
   links?: Maybe<PublicationLinks>;
+  members: PublicationMemberConnection;
   /** The meta tags associated with the publication. */
   metaTags?: Maybe<Scalars['String']['output']>;
   /** Information about the publication's Open Graph metadata i.e. image. */
@@ -4682,6 +4772,8 @@ export type Publication = Node & {
   postsViaPage: PublicationPostPageConnection;
   /** The publication preferences around layout, theme and other personalisations. */
   preferences: Preferences;
+  /** Returns a paginated list of public members of the publication. */
+  publicMembers: PublicationMemberConnection;
   /** Publications that are recommended by this publication. */
   recommendedPublications: Array<UserRecommendedPublicationEdge>;
   /** Publications that are recommending this publication. */
@@ -4762,6 +4854,17 @@ export type PublicationDraftsArgs = {
  * Contains basic information about the publication.
  * A publication is a blog that can be created for a user or a team.
  */
+export type PublicationMembersArgs = {
+  filter?: InputMaybe<PublicationMemberConnectionFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
 export type PublicationPostArgs = {
   slug: Scalars['String']['input'];
 };
@@ -4784,6 +4887,16 @@ export type PublicationPostsArgs = {
  */
 export type PublicationPostsViaPageArgs = {
   filter?: InputMaybe<PublicationPostsViaPageFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationPublicMembersArgs = {
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
 };
@@ -4922,10 +5035,14 @@ export type PublicationIntegrations = {
   gaTrackingID?: Maybe<Scalars['String']['output']>;
   /** Hotjar Site ID for integration with Hotjar. */
   hotjarSiteID?: Maybe<Scalars['String']['output']>;
+  /** Koala Public Key for integration with Koala. */
+  koalaPublicKey?: Maybe<Scalars['String']['output']>;
   /** Matomo Site ID for integration with Matomo Analytics. */
   matomoSiteID?: Maybe<Scalars['String']['output']>;
   /** Matomo URL for integration with Matomo Analytics. */
   matomoURL?: Maybe<Scalars['String']['output']>;
+  /** MS Clarity ID for integration with Microsoft Clarity. */
+  msClarityID?: Maybe<Scalars['String']['output']>;
   /** A flag indicating if the custom domain is enabled for integration with Plausible Analytics. */
   plausibleAnalyticsEnabled?: Maybe<Scalars['Boolean']['output']>;
   /** The share ID for the Hashnode-provided Umami analytics instance. */
@@ -4979,6 +5096,8 @@ export enum PublicationLayout {
 /** Contains the publication's social media links. */
 export type PublicationLinks = {
   __typename?: 'PublicationLinks';
+  /** Bluesky URL of the publication. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** Daily.dev URL of the publication. */
   dailydev?: Maybe<Scalars['String']['output']>;
   /** Facebook URL of the publication. */
@@ -5015,6 +5134,22 @@ export type PublicationMember = Node & {
   role: UserPublicationRole;
   /** The user who is a member of the publication. */
   user?: Maybe<User>;
+};
+
+export type PublicationMemberConnection = PageConnection & {
+  __typename?: 'PublicationMemberConnection';
+  /** A list of members */
+  nodes: Array<PublicationMember>;
+  /** Information for page based pagination in Member connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+/** The filter for the publication member connection. */
+export type PublicationMemberConnectionFilter = {
+  /** Search filter can be used to filter members by their username or email. */
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Publication member privacy state on members page */
@@ -5081,6 +5216,10 @@ export type PublicationPostConnectionFilter = {
   deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** Remove pinned post from the result set. */
   excludePinnedPost?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTagSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTags?: InputMaybe<Array<Scalars['ID']['input']>>;
   /**
    * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
    *
@@ -5837,9 +5976,6 @@ export type ScheduledPost = Node & {
 export enum Scope {
   AcknowledgeEmailImport = 'acknowledge_email_import',
   ActiveProUser = 'active_pro_user',
-  AssignProPublications = 'assign_pro_publications',
-  ChangeProSubscription = 'change_pro_subscription',
-  CreatePro = 'create_pro',
   DeleteDraft = 'delete_draft',
   DocsAdminOrOwner = 'docs_admin_or_owner',
   DocsOwner = 'docs_owner',
@@ -5898,6 +6034,8 @@ export type SearchPostsOfPublicationFilter = {
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
   query?: InputMaybe<Scalars['String']['input']>;
+  /** Tags AND filter. All tags must be present in the post. */
+  requiredTagsIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** An array of tag Ids to filter the posts. */
   tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Filter based on time range. */
@@ -6007,6 +6145,8 @@ export type SetDocumentationSidebarItemVisibilityPayload = {
 /** Available social media links. */
 export type SocialMediaLinks = {
   __typename?: 'SocialMediaLinks';
+  /** The user's Bluesky profile. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** The user's Facebook profile. */
   facebook?: Maybe<Scalars['String']['output']>;
   /** The user's GitHub profile. */
@@ -6348,6 +6488,17 @@ export type UpdateCommentPayload = {
   comment?: Maybe<Comment>;
 };
 
+export type UpdateCustomMdxComponentInput = {
+  code: Scalars['String']['input'];
+  componentId: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type UpdateCustomMdxComponentPayload = {
+  __typename?: 'UpdateCustomMdxComponentPayload';
+  project: DocumentationProject;
+};
+
 export type UpdateDocumentationAppearanceInput = {
   appearance: DocumentationProjectAppearanceInput;
   projectId: Scalars['ID']['input'];
@@ -6653,8 +6804,6 @@ export type User = IUser & Node & {
   followsBack: Scalars['Boolean']['output'];
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
-  /** Whether or not this is a pro user. */
-  isPro: Scalars['Boolean']['output'];
   /** The location of the user. */
   location?: Maybe<Scalars['String']['output']>;
   /** The name of the user. */
@@ -6877,8 +7026,6 @@ export type UserPublicationsConnection = Connection & {
 
 /** Filter to apply to the publications. */
 export type UserPublicationsConnectionFilter = {
-  /** Only return pro publications. */
-  isPro?: InputMaybe<Scalars['Boolean']['input']>;
   /** Only include publication in which the user has one of the provided roles. */
   roles?: InputMaybe<Array<UserPublicationRole>>;
 };
